@@ -45,8 +45,8 @@
       text-decoration: underline;
     }
 
-    /* Slider Styles */
-    .slider {
+    /* Banner slider */
+    .banner-container {
       position: relative;
       max-width: 1200px;
       margin: 20px auto;
@@ -54,40 +54,54 @@
       border-radius: 8px;
     }
 
-    .slides {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-    }
-
-    .slide {
-      min-width: 100%;
+    .banner-slide {
+      display: none;
       position: relative;
     }
 
-    .slide img {
+    .banner-slide img {
       width: 100%;
-      height: 250px;
+      height: 300px;
       object-fit: cover;
+      border-radius: 8px;
     }
 
-    .slide-links {
+    .banner-links {
       position: absolute;
-      bottom: 15px;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       gap: 10px;
     }
 
-    .slide-links a {
-      padding: 8px 12px;
+    .banner-links a {
+      padding: 10px 15px;
       background: rgba(0, 74, 173, 0.8);
       color: white;
       text-decoration: none;
-      border-radius: 4px;
+      border-radius: 5px;
+      font-weight: bold;
       font-size: 14px;
     }
 
+    .banner-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 30px;
+      color: white;
+      background: rgba(0,0,0,0.3);
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 50%;
+      user-select: none;
+    }
+
+    .banner-arrow.left { left: 10px; }
+    .banner-arrow.right { right: 10px; }
+
+    /* Products */
     .products {
       display: flex;
       justify-content: center;
@@ -137,15 +151,31 @@
       text-align: center;
     }
 
-    @media(max-width:768px) {
-      .products {
-        flex-direction: column;
-        align-items: center;
-      }
+    .chatgpt-widget input {
+      width: 70%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
 
-      .slide-links {
-        flex-direction: column;
-      }
+    .chatgpt-widget button {
+      padding: 10px 15px;
+      margin-left: 10px;
+      background: #004aad;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .chatgpt-widget button:hover {
+      background: #002f6c;
+    }
+
+    @media(max-width:768px) {
+      .products { flex-direction: column; align-items: center; }
+      .banner-links { flex-direction: column; }
     }
   </style>
 </head>
@@ -167,30 +197,31 @@
     <a href="contact.html" id="nav-contact" class="nav-link" onclick="dataLayer.push({event:'nav_click', page:'Contact'});">Contact</a>
   </nav>
 
-  <!-- Slider -->
-  <div class="slider" id="banner-slider">
-    <div class="slides">
-      <div class="slide">
-        <img src="https://via.placeholder.com/1200x250?text=Big+Sale+Banner" alt="Banner 1">
-        <div class="slide-links">
-          <a href="product.html" id="banner1-products" onclick="dataLayer.push({event:'banner_click', banner:'Banner 1', link:'Products'});">Products</a>
-          <a href="checkout.html" id="banner1-checkout" onclick="dataLayer.push({event:'banner_click', banner:'Banner 1', link:'Checkout'});">Checkout</a>
-          <a href="contact.html" id="banner1-contact" onclick="dataLayer.push({event:'banner_click', banner:'Banner 1', link:'Contact'});">Contact</a>
-        </div>
-      </div>
-      <div class="slide">
-        <img src="https://via.placeholder.com/1200x250?text=New+Arrivals" alt="Banner 2">
-      </div>
-      <div class="slide">
-        <img src="https://via.placeholder.com/1200x250?text=Special+Offers" alt="Banner 3">
+  <!-- Banner Section -->
+  <div class="banner-container">
+    <div class="banner-slide" id="slide1">
+      <img src="https://source.unsplash.com/1200x300/?shopping,sale" alt="Banner 1">
+      <div class="banner-links">
+        <a href="product.html" id="banner1-products" onclick="dataLayer.push({event:'banner_click', banner:'Banner 1', link:'Products'});">Products</a>
+        <a href="checkout.html" id="banner1-checkout" onclick="dataLayer.push({event:'banner_click', banner:'Banner 1', link:'Checkout'});">Checkout</a>
+        <a href="contact.html" id="banner1-contact" onclick="dataLayer.push({event:'banner_click', banner:'Banner 1', link:'Contact'});">Contact</a>
       </div>
     </div>
+    <div class="banner-slide" id="slide2">
+      <img src="https://source.unsplash.com/1200x300/?new,arrivals" alt="Banner 2">
+    </div>
+    <div class="banner-slide" id="slide3">
+      <img src="https://source.unsplash.com/1200x300/?special,offers" alt="Banner 3">
+    </div>
+
+    <div class="banner-arrow left" onclick="changeSlide(-1)">&#10094;</div>
+    <div class="banner-arrow right" onclick="changeSlide(1)">&#10095;</div>
   </div>
 
   <h2 style="text-align:center;">Our Featured Products</h2>
   <div class="products">
     <div class="card">
-      <img src="https://via.placeholder.com/250x150?text=Product+1" alt="Product 1">
+      <img src="https://source.unsplash.com/250x150/?product,1" alt="Product 1">
       <h3>Product One</h3>
       <p>$49.99</p>
       <button id="btn-product1-view" class="cta-btn" 
@@ -199,7 +230,7 @@
       </button>
     </div>
     <div class="card">
-      <img src="https://via.placeholder.com/250x150?text=Product+2" alt="Product 2">
+      <img src="https://source.unsplash.com/250x150/?product,2" alt="Product 2">
       <h3>Product Two</h3>
       <p>$29.99</p>
       <button id="btn-product2-view" class="cta-btn" 
@@ -208,7 +239,7 @@
       </button>
     </div>
     <div class="card">
-      <img src="https://via.placeholder.com/250x150?text=Product+3" alt="Product 3">
+      <img src="https://source.unsplash.com/250x150/?product,3" alt="Product 3">
       <h3>Product Three</h3>
       <p>$19.99</p>
       <button id="btn-product3-view" class="cta-btn" 
@@ -221,23 +252,23 @@
   <!-- ChatGPT Placeholder -->
   <div class="chatgpt-widget">
     <h3>Ask Me Anything (GA4, Products, etc.)</h3>
-    <input type="text" id="chat-input" placeholder="Type your question here..." style="width:80%; padding:10px; border-radius:5px; border:1px solid #ccc;">
+    <input type="text" id="chat-input" placeholder="Type your question here...">
     <button id="chat-submit" onclick="alert('This is a placeholder for ChatGPT integration');">Ask</button>
   </div>
 
   <script>
-    // Simple slider functionality
-    const slides = document.querySelector('.slides');
-    const totalSlides = document.querySelectorAll('.slide').length;
-    let index = 0;
+    // Banner manual slider
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.banner-slide');
+    slides[currentSlide].style.display = 'block';
 
-    function showNextSlide() {
-      index++;
-      if(index >= totalSlides) index = 0;
-      slides.style.transform = `translateX(-${index * 100}%)`;
+    function changeSlide(direction) {
+      slides[currentSlide].style.display = 'none';
+      currentSlide += direction;
+      if (currentSlide < 0) currentSlide = slides.length - 1;
+      if (currentSlide >= slides.length) currentSlide = 0;
+      slides[currentSlide].style.display = 'block';
     }
-
-    setInterval(showNextSlide, 4000); // Change slide every 4s
   </script>
 
 </body>
