@@ -1,56 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product Details</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Products - GA4 Practice Shop</title>
 
-  <!-- Google Tag Manager -->
+<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-5PB2FBKT');</script>
-<!-- End Google Tag Manager -->
-  
-  <style>
-    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f9f9f9; }
-    header { background:#004aad; color:white; padding:15px; text-align:center; }
-    nav { margin:10px; text-align:center; }
-    nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; }
-    .product-container { display:flex; justify-content:center; padding:30px; gap:40px; }
-    .product-container img { width:300px; border-radius:5px; }
-    .product-details { max-width:400px; }
-    .btn { background:#004aad; color:white; border:none; padding:12px 20px; cursor:pointer; border-radius:4px; }
-    .btn:hover { background:#002f6c; }
-  </style>
+
+<style>
+body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin:0; padding:0; background:#f9f9f9; color:#333; }
+header { background:#004aad; color:white; padding:25px; text-align:center; font-size:28px; font-weight:bold; }
+nav { margin:10px 0; text-align:center; }
+nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:600; font-size:16px; }
+.products-container { display:flex; flex-wrap:wrap; justify-content:center; gap:30px; padding:30px; }
+.card { background:white; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.1); width:260px; text-align:center; padding:20px; transition:transform 0.3s; }
+.card:hover { transform:translateY(-5px); }
+.card img { width:100%; height:180px; object-fit:cover; border-radius:8px; }
+.card h3 { color:#004aad; margin:15px 0 10px; }
+.card p { font-size:16px; color:#555; margin-bottom:15px; }
+.card button { background:#004aad; color:white; border:none; padding:10px 15px; cursor:pointer; border-radius:5px; font-weight:bold; }
+.card button:hover { background:#002f6c; }
+</style>
 </head>
 <body>
 
-  <!-- Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PB2FBKT"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  
-  <header>
-    <h1>Product Details</h1>
-  </header>
-  
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="product.html">Products</a>
-    <a href="checkout.html">Checkout</a>
-    <a href="contact.html">Contact</a>
-  </nav>
 
-  <div class="product-container">
-    <img src="https://via.placeholder.com/300x300?text=Product+1" alt="Product Image">
-    <div class="product-details">
-      <h2>Product One</h2>
-      <p>This is a demo product page. You can use this to test GA4 add_to_cart and view_item tracking.</p>
-      <h3>Price: $49.99</h3>
-      <button class="btn" onclick="location.href='checkout.html'">Add to Cart</button>
-    </div>
+<header>Our Products</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="product.html">Products</a>
+  <a href="checkout.html">Checkout</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<div class="products-container">
+  <div class="card">
+    <img src="Images/Img1.png" alt="Product 1">
+    <h3>Product One</h3>
+    <p>$49.99</p>
+    <button onclick="location.href='checkout.html'" id="product1-btn" class="cta-btn" data-layer="product1-click">Add to Cart</button>
   </div>
+  <div class="card">
+    <img src="Images/Img2.png" alt="Product 2">
+    <h3>Product Two</h3>
+    <p>$29.99</p>
+    <button onclick="location.href='checkout.html'" id="product2-btn" class="cta-btn" data-layer="product2-click">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="Images/Img3.png" alt="Product 3">
+    <h3>Product Three</h3>
+    <p>$19.99</p>
+    <button onclick="location.href='checkout.html'" id="product3-btn" class="cta-btn" data-layer="product3-click">Add to Cart</button>
+  </div>
+</div>
+
 </body>
 </html>
