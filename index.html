@@ -17,6 +17,7 @@ body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f9f9f9; 
 header { background: #004aad; color:white; padding:15px; text-align:center; }
 nav { text-align:center; margin:10px 0; }
 nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; }
+
 .banner-container { position: relative; max-width:1200px; margin:20px auto; overflow:hidden; border-radius:10px; }
 .banner-slide { display: none; position: relative; width:100%; }
 .banner-slide img { width:100%; height:350px; object-fit:cover; border-radius:10px; }
@@ -64,7 +65,7 @@ nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; }
     <div class="banner-text">
       <h2>Audit your GA4 Setup</h2>
       <p>Check if your GA4 implementation is correct and complete.</p>
-      <button onclick="location.href='blog.html#audit-ga4'">Read More</button>
+      <button onclick="location.href='blog/what-is-GA4.html'">Read More</button>
     </div>
   </div>
   <div class="banner-slide">
@@ -72,7 +73,7 @@ nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; }
     <div class="banner-text">
       <h2>Common Not Set Issue in GA4</h2>
       <p>Understand why 'Not Set' appears and how to fix it.</p>
-      <button onclick="location.href='blog.html#not-set'">Read More</button>
+      <button onclick="location.href='blog/common-not-set-issue.html'">Read More</button>
     </div>
   </div>
   <div class="banner-slide">
@@ -80,7 +81,7 @@ nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; }
     <div class="banner-text">
       <h2>What is GTM?</h2>
       <p>Learn how Google Tag Manager simplifies tracking setup.</p>
-      <button onclick="location.href='blog.html#gtm'">Read More</button>
+      <button onclick="location.href='blog/what-is-GTM.html'">Read More</button>
     </div>
   </div>
   <a class="arrow left" onclick="changeSlide(-1)">&#10094;</a>
@@ -90,19 +91,19 @@ nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; }
 <h2 style="text-align:center;">Our Featured Products</h2>
 <div class="products">
   <div class="card">
-    <img src="https://via.placeholder.com/250x150?text=Product+1" alt="Product 1">
+    <img src="Images/Img1.png" alt="Product 1">
     <h3>Product One</h3>
     <p>$49.99</p>
     <button id="view-product-1" onclick="location.href='product.html'" data-layer="viewProduct1">View Details</button>
   </div>
   <div class="card">
-    <img src="https://via.placeholder.com/250x150?text=Product+2" alt="Product 2">
+    <img src="Images/Img2.png" alt="Product 2">
     <h3>Product Two</h3>
     <p>$29.99</p>
     <button id="view-product-2" onclick="location.href='product.html'" data-layer="viewProduct2">View Details</button>
   </div>
   <div class="card">
-    <img src="https://via.placeholder.com/250x150?text=Product+3" alt="Product 3">
+    <img src="Images/Img3.png" alt="Product 3">
     <h3>Product Three</h3>
     <p>$19.99</p>
     <button id="view-product-3" onclick="location.href='product.html'" data-layer="viewProduct3">View Details</button>
@@ -110,22 +111,22 @@ nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; }
 </div>
 
 <!-- Sections below products -->
-<div class="section" id="audit-ga4">
+<div class="section">
   <h3>Audit Your GA4 Setup</h3>
   <p>Ensure your GA4 is properly configured to track all important events and conversions.</p>
-  <a href="blog.html#audit-ga4">Read More</a>
+  <a href="blog/what-is-GA4.html">Read More</a>
 </div>
 
-<div class="section" id="not-set">
+<div class="section">
   <h3>Common Not Set Issue in GA4</h3>
   <p>Discover why 'Not Set' appears and how you can resolve it quickly.</p>
-  <a href="blog.html#not-set">Read More</a>
+  <a href="blog/common-not-set-issue.html">Read More</a>
 </div>
 
-<div class="section" id="gtm">
+<div class="section">
   <h3>What is GTM?</h3>
   <p>Learn about Google Tag Manager and how it simplifies tracking for your website.</p>
-  <a href="blog.html#gtm">Read More</a>
+  <a href="blog/what-is-GTM.html">Read More</a>
 </div>
 
 <script>
