@@ -11,36 +11,36 @@
   nav { margin:10px 0; text-align:center; }
   nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:600; font-size:16px; }
 
-  /* Banner Styles */
-  .banner-container { position: relative; max-width: 100%; margin: auto; overflow: hidden; height: 300px; border-radius:10px; }
-  .banner-slide { display: none; position: relative; height: 100%; cursor:pointer; }
-  .banner-slide img { width: 100%; height: 100%; object-fit: cover; border-radius:10px; }
-  .prev, .next { cursor: pointer; position: absolute; top: 50%; width: auto; margin-top: -25px; padding: 15px; color: white; font-weight: bold; font-size: 24px; border: none; background: rgba(0,0,0,0.3); border-radius: 50%; user-select: none; transition: background 0.3s; }
-  .prev:hover, .next:hover { background: rgba(0,0,0,0.6); }
-  .prev { left: 15px; }
-  .next { right: 15px; }
+  /* Banner */
+  .banner-container { position: relative; max-width: 100%; margin:auto; overflow:hidden; height:300px; border-radius:10px; }
+  .banner-slide { display: none; height: 100%; cursor:pointer; }
+  .banner-slide img { width:100%; height:100%; object-fit:cover; border-radius:10px; }
+  .prev, .next { cursor:pointer; position:absolute; top:50%; width:auto; margin-top:-25px; padding:15px; color:white; font-weight:bold; font-size:24px; border:none; background:rgba(0,0,0,0.3); border-radius:50%; user-select:none; transition:0.3s; }
+  .prev:hover, .next:hover { background:rgba(0,0,0,0.6); }
+  .prev { left:15px; }
+  .next { right:15px; }
 
-  /* Products Section */
-  .section { padding: 50px 20px; text-align:center; }
+  /* Products */
+  .section { padding:50px 20px; text-align:center; }
   .section h2 { color:#004aad; margin-bottom:40px; font-size:28px; }
-  .products { display: flex; justify-content: center; flex-wrap: wrap; gap:25px; }
-  .card { background: white; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); width:260px; text-align:center; padding:15px; transition: transform 0.3s, box-shadow 0.3s; }
-  .card:hover { transform: translateY(-8px); box-shadow:0 6px 18px rgba(0,0,0,0.2); }
+  .products { display:flex; justify-content:center; flex-wrap:wrap; gap:25px; }
+  .card { background:white; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); width:260px; text-align:center; padding:15px; transition: transform 0.3s, box-shadow 0.3s; }
+  .card:hover { transform:translateY(-8px); box-shadow:0 6px 18px rgba(0,0,0,0.2); }
   .card img { width:100%; height:160px; object-fit:cover; border-radius:10px; }
-  .card h3 { margin:15px 0 10px 0; font-size:18px; color:#004aad; }
+  .card h3 { margin:15px 0 10px; font-size:18px; color:#004aad; }
   .card p { font-size:16px; color:#555; margin:0 0 10px 0; }
-  .card button { background:#004aad; color:white; border:none; padding:10px 15px; margin-top:5px; cursor:pointer; border-radius:5px; font-weight:600; transition: background 0.3s; }
+  .card button { background:#004aad; color:white; border:none; padding:10px 15px; margin-top:5px; cursor:pointer; border-radius:5px; font-weight:600; transition:0.3s; }
   .card button:hover { background:#002f6c; }
 
   /* Info Sections */
   .info-section { background:white; max-width:1000px; margin:40px auto; padding:35px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); text-align:left; }
-  .info-section h3 { color:#004aad; margin-bottom:18px; font-size:20px; }
+  .info-section h3 { color:#004aad; font-size:20px; margin-bottom:15px; }
   .info-section p { font-size:16px; line-height:1.7; color:#555; }
   .read-more { display:inline-block; margin-top:10px; color:#004aad; text-decoration:none; font-weight:bold; }
   .read-more:hover { text-decoration:underline; }
 
   @media (max-width:768px) {
-    .products { flex-direction: column; align-items:center; }
+    .products { flex-direction:column; align-items:center; }
     .banner-container { height:220px; }
     .section h2 { font-size:24px; }
     .card { width:90%; max-width:300px; }
@@ -49,9 +49,7 @@
 </head>
 <body>
 
-<header>
-  Welcome to My Practice Shop
-</header>
+<header>Welcome to My Practice Shop</header>
 
 <nav>
   <a href="index.html">Home</a>
@@ -60,11 +58,11 @@
   <a href="contact.html">Contact</a>
 </nav>
 
-<!-- Banner Section -->
+<!-- Banner -->
 <div class="banner-container">
-  <div class="banner-slide" onclick="location.href='blog-audit-ga4.html'"><img src="Images/Img1.png" alt="Banner 1"></div>
-  <div class="banner-slide" onclick="location.href='blog-not-set.html'"><img src="Images/Img2.png" alt="Banner 2"></div>
-  <div class="banner-slide" onclick="location.href='blog-gtm.html'"><img src="Images/Img3.png" alt="Banner 3"></div>
+  <div class="banner-slide" onclick="location.href='blog/what-is-ga4.html'"><img src="Images/Img1.png" alt="Banner 1"></div>
+  <div class="banner-slide" onclick="location.href='blog/common-not-set.html'"><img src="Images/Img2.png" alt="Banner 2"></div>
+  <div class="banner-slide" onclick="location.href='blog/what-is-gtm.html'"><img src="Images/Img3.png" alt="Banner 3"></div>
 
   <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
   <button class="next" onclick="changeSlide(1)">&#10095;</button>
@@ -95,23 +93,23 @@
   </div>
 </div>
 
-<!-- GA4 Info Sections -->
+<!-- Blog Info Sections -->
 <div class="info-section">
   <h3>Audit Your GA4 Setup</h3>
   <p>Regular GA4 audits ensure your tracking is accurate, your events are firing correctly, and your data is reliable for analysis.</p>
-  <a class="read-more" href="blog-audit-ga4.html">Read More</a>
+  <a class="read-more" href="blog/what-is-ga4.html">Read More</a>
 </div>
 
 <div class="info-section">
   <h3>Common GA4 Issues & Solutions</h3>
   <p>Many GA4 setups face "Not Set" issues in reports due to missing or misconfigured parameters.</p>
-  <a class="read-more" href="blog-not-set.html">Read More</a>
+  <a class="read-more" href="blog/common-not-set.html">Read More</a>
 </div>
 
 <div class="info-section">
   <h3>What is Google Tag Manager (GTM)?</h3>
   <p>GTM is a tag management system that allows you to deploy and manage tracking codes on your website without touching the code directly.</p>
-  <a class="read-more" href="blog-gtm.html">Read More</a>
+  <a class="read-more" href="blog/what-is-gtm.html">Read More</a>
 </div>
 
 <script>
@@ -126,7 +124,7 @@
     showSlide(slideIndex);
   }
   function showSlide(index) {
-    slides.forEach((slide, i) => { slide.style.display = (i === index) ? 'block' : 'none'; });
+    slides.forEach((slide,i)=>{slide.style.display=(i===index)?'block':'none';});
   }
 </script>
 
