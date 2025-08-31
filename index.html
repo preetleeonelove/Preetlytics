@@ -13,8 +13,14 @@
 
   /* Banner */
   .banner-container { position: relative; max-width: 100%; margin:auto; overflow:hidden; height:300px; border-radius:10px; }
-  .banner-slide { display: none; height: 100%; cursor:pointer; }
+  .banner-slide { display: none; height: 100%; position:relative; }
   .banner-slide img { width:100%; height:100%; object-fit:cover; border-radius:10px; }
+  .banner-text { position:absolute; bottom:20px; left:20px; background:rgba(0,0,0,0.5); color:white; padding:15px; border-radius:8px; max-width:300px; }
+  .banner-text h3 { margin:0 0 5px 0; font-size:18px; }
+  .banner-text p { font-size:14px; margin:0 0 10px 0; }
+  .banner-text button { background:#004aad; color:white; border:none; padding:8px 12px; cursor:pointer; border-radius:5px; font-weight:600; }
+  .banner-text button:hover { background:#002f6c; }
+
   .prev, .next { cursor:pointer; position:absolute; top:50%; width:auto; margin-top:-25px; padding:15px; color:white; font-weight:bold; font-size:24px; border:none; background:rgba(0,0,0,0.3); border-radius:50%; user-select:none; transition:0.3s; }
   .prev:hover, .next:hover { background:rgba(0,0,0,0.6); }
   .prev { left:15px; }
@@ -27,7 +33,7 @@
   .card { background:white; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); width:260px; text-align:center; padding:15px; transition: transform 0.3s, box-shadow 0.3s; }
   .card:hover { transform:translateY(-8px); box-shadow:0 6px 18px rgba(0,0,0,0.2); }
   .card img { width:100%; height:160px; object-fit:cover; border-radius:10px; }
-  .card h3 { margin:15px 0 10px; font-size:18px; color:#004aad; }
+  .card h3 { margin:15px 0 10px 0; font-size:18px; color:#004aad; }
   .card p { font-size:16px; color:#555; margin:0 0 10px 0; }
   .card button { background:#004aad; color:white; border:none; padding:10px 15px; margin-top:5px; cursor:pointer; border-radius:5px; font-weight:600; transition:0.3s; }
   .card button:hover { background:#002f6c; }
@@ -60,9 +66,30 @@
 
 <!-- Banner -->
 <div class="banner-container">
-  <div class="banner-slide" onclick="location.href='blog/what-is-ga4.html'"><img src="Images/Img1.png" alt="Banner 1"></div>
-  <div class="banner-slide" onclick="location.href='blog/common-not-set.html'"><img src="Images/Img2.png" alt="Banner 2"></div>
-  <div class="banner-slide" onclick="location.href='blog/what-is-gtm.html'"><img src="Images/Img3.png" alt="Banner 3"></div>
+  <div class="banner-slide">
+    <img src="Images/Img1.png" alt="Banner 1">
+    <div class="banner-text">
+      <h3>Audit Your GA4 Setup</h3>
+      <p>Ensure accurate tracking and reliable data for analysis.</p>
+      <button onclick="location.href='blog/what-is-ga4.html'">Read More</button>
+    </div>
+  </div>
+  <div class="banner-slide">
+    <img src="Images/Img2.png" alt="Banner 2">
+    <div class="banner-text">
+      <h3>Common GA4 Issues</h3>
+      <p>Resolve "Not Set" issues for better reporting accuracy.</p>
+      <button onclick="location.href='blog/common-not-set.html'">Read More</button>
+    </div>
+  </div>
+  <div class="banner-slide">
+    <img src="Images/Img3.png" alt="Banner 3">
+    <div class="banner-text">
+      <h3>What is GTM?</h3>
+      <p>Manage all tracking codes efficiently without touching code.</p>
+      <button onclick="location.href='blog/what-is-gtm.html'">Read More</button>
+    </div>
+  </div>
 
   <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
   <button class="next" onclick="changeSlide(1)">&#10095;</button>
