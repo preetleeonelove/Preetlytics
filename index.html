@@ -13,7 +13,7 @@
 
   /* Banner Styles */
   .banner-container { position: relative; max-width: 100%; margin: auto; overflow: hidden; height: 300px; border-radius:10px; }
-  .banner-slide { display: none; position: relative; height: 100%; }
+  .banner-slide { display: none; position: relative; height: 100%; cursor:pointer; }
   .banner-slide img { width: 100%; height: 100%; object-fit: cover; border-radius:10px; }
   .prev, .next { cursor: pointer; position: absolute; top: 50%; width: auto; margin-top: -25px; padding: 15px; color: white; font-weight: bold; font-size: 24px; border: none; background: rgba(0,0,0,0.3); border-radius: 50%; user-select: none; transition: background 0.3s; }
   .prev:hover, .next:hover { background: rgba(0,0,0,0.6); }
@@ -36,6 +36,8 @@
   .info-section { background:white; max-width:1000px; margin:40px auto; padding:35px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); text-align:left; }
   .info-section h3 { color:#004aad; margin-bottom:18px; font-size:20px; }
   .info-section p { font-size:16px; line-height:1.7; color:#555; }
+  .read-more { display:inline-block; margin-top:10px; color:#004aad; text-decoration:none; font-weight:bold; }
+  .read-more:hover { text-decoration:underline; }
 
   @media (max-width:768px) {
     .products { flex-direction: column; align-items:center; }
@@ -60,9 +62,9 @@
 
 <!-- Banner Section -->
 <div class="banner-container">
-  <div class="banner-slide"><img src="Images/Img1.png" alt="Banner 1"></div>
-  <div class="banner-slide"><img src="Images/Img2.png" alt="Banner 2"></div>
-  <div class="banner-slide"><img src="Images/Img3.png" alt="Banner 3"></div>
+  <div class="banner-slide" onclick="location.href='blog-audit-ga4.html'"><img src="Images/Img1.png" alt="Banner 1"></div>
+  <div class="banner-slide" onclick="location.href='blog-not-set.html'"><img src="Images/Img2.png" alt="Banner 2"></div>
+  <div class="banner-slide" onclick="location.href='blog-gtm.html'"><img src="Images/Img3.png" alt="Banner 3"></div>
 
   <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
   <button class="next" onclick="changeSlide(1)">&#10095;</button>
@@ -96,17 +98,20 @@
 <!-- GA4 Info Sections -->
 <div class="info-section">
   <h3>Audit Your GA4 Setup</h3>
-  <p>Regular GA4 audits ensure your tracking is accurate, your events are firing correctly, and your data is reliable for analysis. Identify missing tags, incorrect event parameters, and optimize your setup for better insights.</p>
+  <p>Regular GA4 audits ensure your tracking is accurate, your events are firing correctly, and your data is reliable for analysis.</p>
+  <a class="read-more" href="blog-audit-ga4.html">Read More</a>
 </div>
 
 <div class="info-section">
   <h3>Common GA4 Issues & Solutions</h3>
-  <p>Many GA4 setups face "Not Set" issues in reports due to missing or misconfigured parameters. Learn how to configure events properly, fix missing dimensions, and ensure your data is clean and actionable.</p>
+  <p>Many GA4 setups face "Not Set" issues in reports due to missing or misconfigured parameters.</p>
+  <a class="read-more" href="blog-not-set.html">Read More</a>
 </div>
 
 <div class="info-section">
   <h3>What is Google Tag Manager (GTM)?</h3>
-  <p>GTM is a tag management system that allows you to deploy and manage tracking codes on your website without touching the code directly. Using GTM with GA4 simplifies event tracking, reduces errors, and helps maintain a clean data layer.</p>
+  <p>GTM is a tag management system that allows you to deploy and manage tracking codes on your website without touching the code directly.</p>
+  <a class="read-more" href="blog-gtm.html">Read More</a>
 </div>
 
 <script>
