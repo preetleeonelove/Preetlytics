@@ -6,13 +6,13 @@
   <title>GA4 Practice Shop</title>
 
   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-5PB2FBKT');</script>
-<!-- End Google Tag Manager -->
-  
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5PB2FBKT');</script>
+  <!-- End Google Tag Manager -->
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -21,28 +21,73 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       background: #f9f9f9;
       color: #333;
     }
+
     header {
       background: #004aad;
       color: white;
       padding: 15px;
       text-align: center;
     }
+
     nav {
       margin: 10px;
       text-align: center;
     }
+
     nav a {
       margin: 0 15px;
       text-decoration: none;
       color: #004aad;
       font-weight: bold;
     }
-    .banner img {
-      width: 100%;
-      max-height: 250px;
-      object-fit: cover;
-      margin-bottom: 20px;
+
+    nav a:hover {
+      text-decoration: underline;
     }
+
+    /* Slider Styles */
+    .slider {
+      position: relative;
+      max-width: 1200px;
+      margin: 20px auto;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+      min-width: 100%;
+      position: relative;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .slide-links {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+
+    .slide-links a {
+      padding: 8px 12px;
+      background: rgba(0, 74, 173, 0.8);
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
     .products {
       display: flex;
       justify-content: center;
@@ -50,6 +95,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       gap: 20px;
       padding: 20px;
     }
+
     .card {
       background: white;
       border-radius: 5px;
@@ -58,12 +104,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       text-align: center;
       padding: 15px;
     }
+
     .card img {
       width: 100%;
       height: 150px;
       object-fit: cover;
       border-radius: 5px;
     }
+
     .card button {
       background: #004aad;
       color: white;
@@ -73,31 +121,70 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       cursor: pointer;
       border-radius: 3px;
     }
+
     .card button:hover {
       background: #002f6c;
+    }
+
+    /* ChatGPT Placeholder */
+    .chatgpt-widget {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    @media(max-width:768px) {
+      .products {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .slide-links {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
 
   <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PB2FBKT"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PB2FBKT"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
   <header>
     <h1>Welcome to My Practice Shop</h1>
   </header>
 
   <nav>
-    <a href="index.html" id="nav-home">Home</a>
-    <a href="product.html" id="nav-products">Products</a>
-    <a href="checkout.html" id="nav-checkout">Checkout</a>
-    <a href="contact.html" id="nav-contact">Contact</a>
+    <a href="index.html" id="nav-home" class="nav-link" onclick="dataLayer.push({event:'nav_click', page:'Home'});">Home</a>
+    <a href="product.html" id="nav-products" class="nav-link" onclick="dataLayer.push({event:'nav_click', page:'Products'});">Products</a>
+    <a href="checkout.html" id="nav-checkout" class="nav-link" onclick="dataLayer.push({event:'nav_click', page:'Checkout'});">Checkout</a>
+    <a href="contact.html" id="nav-contact" class="nav-link" onclick="dataLayer.push({event:'nav_click', page:'Contact'});">Contact</a>
   </nav>
 
-  <div class="banner">
-    <a href="product.html"><img src="https://via.placeholder.com/1200x250?text=Big+Sale+Banner" alt="Banner"></a>
+  <!-- Slider -->
+  <div class="slider" id="banner-slider">
+    <div class="slides">
+      <div class="slide">
+        <img src="https://via.placeholder.com/1200x250?text=Big+Sale+Banner" alt="Banner 1">
+        <div class="slide-links">
+          <a href="product.html" id="banner1-products" onclick="dataLayer.push({event:'banner_click', banner:'Banner 1', link:'Products'});">Products</a>
+          <a href="checkout.html" id="banner1-checkout" onclick="dataLayer.push({event:'banner_click', banner:'Banner 1', link:'Checkout'});">Checkout</a>
+          <a href="contact.html" id="banner1-contact" onclick="dataLayer.push({event:'banner_click', banner:'Banner 1', link:'Contact'});">Contact</a>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="https://via.placeholder.com/1200x250?text=New+Arrivals" alt="Banner 2">
+      </div>
+      <div class="slide">
+        <img src="https://via.placeholder.com/1200x250?text=Special+Offers" alt="Banner 3">
+      </div>
+    </div>
   </div>
 
   <h2 style="text-align:center;">Our Featured Products</h2>
@@ -106,20 +193,52 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <img src="https://via.placeholder.com/250x150?text=Product+1" alt="Product 1">
       <h3>Product One</h3>
       <p>$49.99</p>
-      <button onclick="location.href='product.html'">View Details</button>
+      <button id="btn-product1-view" class="cta-btn" 
+        onclick="dataLayer.push({event:'view_item', item_name:'Product One'}); location.href='product.html';">
+        View Details
+      </button>
     </div>
     <div class="card">
       <img src="https://via.placeholder.com/250x150?text=Product+2" alt="Product 2">
       <h3>Product Two</h3>
       <p>$29.99</p>
-      <button onclick="location.href='product.html'">View Details</button>
+      <button id="btn-product2-view" class="cta-btn" 
+        onclick="dataLayer.push({event:'view_item', item_name:'Product Two'}); location.href='product.html';">
+        View Details
+      </button>
     </div>
     <div class="card">
       <img src="https://via.placeholder.com/250x150?text=Product+3" alt="Product 3">
       <h3>Product Three</h3>
       <p>$19.99</p>
-      <button onclick="location.href='product.html'">View Details</button>
+      <button id="btn-product3-view" class="cta-btn" 
+        onclick="dataLayer.push({event:'view_item', item_name:'Product Three'}); location.href='product.html';">
+        View Details
+      </button>
     </div>
   </div>
+
+  <!-- ChatGPT Placeholder -->
+  <div class="chatgpt-widget">
+    <h3>Ask Me Anything (GA4, Products, etc.)</h3>
+    <input type="text" id="chat-input" placeholder="Type your question here..." style="width:80%; padding:10px; border-radius:5px; border:1px solid #ccc;">
+    <button id="chat-submit" onclick="alert('This is a placeholder for ChatGPT integration');">Ask</button>
+  </div>
+
+  <script>
+    // Simple slider functionality
+    const slides = document.querySelector('.slides');
+    const totalSlides = document.querySelectorAll('.slide').length;
+    let index = 0;
+
+    function showNextSlide() {
+      index++;
+      if(index >= totalSlides) index = 0;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    setInterval(showNextSlide, 4000); // Change slide every 4s
+  </script>
+
 </body>
 </html>
