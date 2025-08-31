@@ -6,51 +6,50 @@
 <title>GA4 Practice Shop</title>
 
 <style>
-  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin:0; padding:0; background:#f9f9f9; color:#333; }
-  header { background:#004aad; color:white; padding:25px 20px; text-align:center; font-size:24px; font-weight:bold; }
-  nav { margin:10px 0; text-align:center; }
-  nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:600; font-size:16px; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin:0; padding:0; background:#f9f9f9; color:#333; }
+header { background:#004aad; color:white; padding:25px 20px; text-align:center; font-size:24px; font-weight:bold; }
+nav { margin:10px 0; text-align:center; }
+nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:600; font-size:16px; }
 
-  /* Banner */
-  .banner-container { position: relative; max-width: 100%; margin:auto; overflow:hidden; height:300px; border-radius:10px; }
-  .banner-slide { display: none; height: 100%; position:relative; }
-  .banner-slide img { width:100%; height:100%; object-fit:cover; border-radius:10px; }
-  .banner-text { position:absolute; bottom:20px; left:20px; background:rgba(0,0,0,0.5); color:white; padding:15px; border-radius:8px; max-width:300px; }
-  .banner-text h3 { margin:0 0 5px 0; font-size:18px; }
-  .banner-text p { font-size:14px; margin:0 0 10px 0; }
-  .banner-text button { background:#004aad; color:white; border:none; padding:8px 12px; cursor:pointer; border-radius:5px; font-weight:600; }
-  .banner-text button:hover { background:#002f6c; }
+/* Banner */
+.banner-container { position: relative; max-width: 100%; margin:auto; overflow:hidden; height:300px; border-radius:10px; }
+.banner-slide { display: none; height: 100%; position:relative; }
+.banner-slide img { width:100%; height:100%; object-fit:cover; border-radius:10px; }
+.banner-text { position:absolute; bottom:20px; left:20px; background:rgba(0,0,0,0.5); color:white; padding:15px; border-radius:8px; max-width:300px; z-index:2; }
+.banner-text h3 { margin:0 0 5px 0; font-size:18px; }
+.banner-text p { margin:0 0 10px 0; font-size:14px; }
+.banner-text button { background:#004aad; color:white; border:none; padding:8px 12px; cursor:pointer; border-radius:5px; font-weight:600; }
+.banner-text button:hover { background:#002f6c; }
+.prev, .next { cursor:pointer; position:absolute; top:50%; width:auto; margin-top:-25px; padding:15px; color:white; font-weight:bold; font-size:24px; border:none; background:rgba(0,0,0,0.3); border-radius:50%; user-select:none; transition:0.3s; }
+.prev:hover, .next:hover { background:rgba(0,0,0,0.6); }
+.prev { left:15px; }
+.next { right:15px; }
 
-  .prev, .next { cursor:pointer; position:absolute; top:50%; width:auto; margin-top:-25px; padding:15px; color:white; font-weight:bold; font-size:24px; border:none; background:rgba(0,0,0,0.3); border-radius:50%; user-select:none; transition:0.3s; }
-  .prev:hover, .next:hover { background:rgba(0,0,0,0.6); }
-  .prev { left:15px; }
-  .next { right:15px; }
+/* Products */
+.section { padding:50px 20px; text-align:center; }
+.section h2 { color:#004aad; margin-bottom:40px; font-size:28px; }
+.products { display:flex; justify-content:center; flex-wrap:wrap; gap:25px; }
+.card { background:white; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); width:260px; text-align:center; padding:15px; transition: transform 0.3s, box-shadow 0.3s; }
+.card:hover { transform:translateY(-8px); box-shadow:0 6px 18px rgba(0,0,0,0.2); }
+.card img { width:100%; height:160px; object-fit:cover; border-radius:10px; }
+.card h3 { margin:15px 0 10px 0; font-size:18px; color:#004aad; }
+.card p { font-size:16px; color:#555; margin:0 0 10px 0; }
+.card button { background:#004aad; color:white; border:none; padding:10px 15px; margin-top:5px; cursor:pointer; border-radius:5px; font-weight:600; transition:0.3s; }
+.card button:hover { background:#002f6c; }
 
-  /* Products */
-  .section { padding:50px 20px; text-align:center; }
-  .section h2 { color:#004aad; margin-bottom:40px; font-size:28px; }
-  .products { display:flex; justify-content:center; flex-wrap:wrap; gap:25px; }
-  .card { background:white; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); width:260px; text-align:center; padding:15px; transition: transform 0.3s, box-shadow 0.3s; }
-  .card:hover { transform:translateY(-8px); box-shadow:0 6px 18px rgba(0,0,0,0.2); }
-  .card img { width:100%; height:160px; object-fit:cover; border-radius:10px; }
-  .card h3 { margin:15px 0 10px 0; font-size:18px; color:#004aad; }
-  .card p { font-size:16px; color:#555; margin:0 0 10px 0; }
-  .card button { background:#004aad; color:white; border:none; padding:10px 15px; margin-top:5px; cursor:pointer; border-radius:5px; font-weight:600; transition:0.3s; }
-  .card button:hover { background:#002f6c; }
+/* Info Sections */
+.info-section { background:white; max-width:1000px; margin:40px auto; padding:35px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); text-align:left; }
+.info-section h3 { color:#004aad; font-size:20px; margin-bottom:15px; }
+.info-section p { font-size:16px; line-height:1.7; color:#555; }
+.read-more { display:inline-block; margin-top:10px; color:#004aad; text-decoration:none; font-weight:bold; }
+.read-more:hover { text-decoration:underline; }
 
-  /* Info Sections */
-  .info-section { background:white; max-width:1000px; margin:40px auto; padding:35px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); text-align:left; }
-  .info-section h3 { color:#004aad; font-size:20px; margin-bottom:15px; }
-  .info-section p { font-size:16px; line-height:1.7; color:#555; }
-  .read-more { display:inline-block; margin-top:10px; color:#004aad; text-decoration:none; font-weight:bold; }
-  .read-more:hover { text-decoration:underline; }
-
-  @media (max-width:768px) {
-    .products { flex-direction:column; align-items:center; }
-    .banner-container { height:220px; }
-    .section h2 { font-size:24px; }
-    .card { width:90%; max-width:300px; }
-  }
+@media (max-width:768px) {
+  .products { flex-direction:column; align-items:center; }
+  .banner-container { height:220px; }
+  .section h2 { font-size:24px; }
+  .card { width:90%; max-width:300px; }
+}
 </style>
 </head>
 <body>
@@ -120,7 +119,7 @@
   </div>
 </div>
 
-<!-- Blog Info Sections -->
+<!-- Info Sections -->
 <div class="info-section">
   <h3>Audit Your GA4 Setup</h3>
   <p>Regular GA4 audits ensure your tracking is accurate, your events are firing correctly, and your data is reliable for analysis.</p>
@@ -140,19 +139,20 @@
 </div>
 
 <script>
-  // Banner slider
-  let slideIndex = 0;
-  const slides = document.querySelectorAll('.banner-slide');
+let slideIndex = 0;
+const slides = document.querySelectorAll('.banner-slide');
+showSlide(slideIndex);
+
+function changeSlide(n) {
+  slideIndex += n;
+  if(slideIndex >= slides.length) slideIndex = 0;
+  if(slideIndex < 0) slideIndex = slides.length - 1;
   showSlide(slideIndex);
-  function changeSlide(n) {
-    slideIndex += n;
-    if(slideIndex >= slides.length) slideIndex = 0;
-    if(slideIndex < 0) slideIndex = slides.length - 1;
-    showSlide(slideIndex);
-  }
-  function showSlide(index) {
-    slides.forEach((slide,i)=>{slide.style.display=(i===index)?'block':'none';});
-  }
+}
+
+function showSlide(index) {
+  slides.forEach((slide,i)=>{slide.style.display=(i===index)?'block':'none';});
+}
 </script>
 
 </body>
