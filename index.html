@@ -5,109 +5,160 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GA4 Practice Shop</title>
 
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-5PB2FBKT');</script>
-  <!-- End Google Tag Manager -->
-
   <style>
-    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f9f9f9; color:#333;}
-    header { background:#004aad; color:white; padding:15px; text-align:center;}
-    nav { margin:10px; text-align:center;}
-    nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold;}
-    nav a:hover { text-decoration:underline;}
-
-    /* Banner slider */
-    .banner-container { position: relative; max-width: 1200px; margin: 20px auto; overflow: hidden; border-radius: 8px; }
+    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f9f9f9; color:#333; }
+    header { background:#004aad; color:white; padding:15px; text-align:center; }
+    nav { margin:10px; text-align:center; }
+    nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; }
+    
+    /* Banner Styles */
+    .banner-container { position: relative; max-width: 100%; margin: auto; overflow: hidden; }
     .banner-slide { display: none; position: relative; }
-    .banner-slide img { width: 100%; height: 300px; object-fit: cover; border-radius: 8px; }
-    .banner-links { position: absolute; bottom: 20px; left:50%; transform: translateX(-50%); display:flex; gap:10px; }
-    .banner-links a { padding:10px 15px; background: rgba(0, 74, 173, 0.8); color:white; text-decoration:none; border-radius:5px; font-weight:bold; font-size:14px;}
-    .banner-arrow { position:absolute; top:50%; transform:translateY(-50%); font-size:30px; color:white; background:rgba(0,0,0,0.3); padding:10px; cursor:pointer; border-radius:50%; user-select:none;}
-    .banner-arrow.left { left:10px; }
-    .banner-arrow.right { right:10px; }
+    .banner-slide img { width: 100%; height: auto; }
+    .banner-links { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); text-align: center; }
+    .banner-links a { margin: 0 10px; padding: 8px 12px; background: #004aad; color: white; text-decoration: none; border-radius: 4px; }
+    .prev, .next { cursor: pointer; position: absolute; top: 50%; width: auto; margin-top: -20px; padding: 12px; color: white; font-weight: bold; font-size: 24px; border: none; background: rgba(0,0,0,0.3); border-radius: 50%; user-select: none; }
+    .prev { left: 10px; }
+    .next { right: 10px; }
+    .prev:hover, .next:hover { background: rgba(0,0,0,0.6); }
 
-    /* Products */
-    .products { display:flex; justify-content:center; flex-wrap:wrap; gap:20px; padding:20px; }
-    .card { background:white; border-radius:5px; box-shadow:0 2px 6px rgba(0,0,0,0.1); width:250px; text-align:center; padding:15px; }
+    /* Products Section */
+    .products { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; padding: 20px; }
+    .card { background: white; border-radius:5px; box-shadow:0 2px 6px rgba(0,0,0,0.1); width:250px; text-align:center; padding:15px; }
     .card img { width:100%; height:150px; object-fit:cover; border-radius:5px; }
     .card button { background:#004aad; color:white; border:none; padding:10px 15px; margin-top:10px; cursor:pointer; border-radius:3px; }
     .card button:hover { background:#002f6c; }
 
-    /* ChatGPT */
-    .chatgpt-widget { max-width: 1200px; margin:30px auto; padding:20px; background:white; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1); text-align:center; }
-    .chatgpt-widget input { width:70%; padding:10px; border-radius:5px; border:1px solid #ccc; font-size:14px;}
-    .chatgpt-widget button { padding:10px 15px; margin-left:10px; background:#004aad; color:white; border:none; border-radius:5px; cursor:pointer;}
-    .chatgpt-widget button:hover { background:#002f6c;}
-    .chatgpt-widget #chat-response { margin-top:15px; text-align:left; padding:10px; background:#f1f1f1; border-radius:5px; min-height:50px; max-height:200px; overflow:auto; }
-
-    @media(max-width:768px){ .products{ flex-direction:column; align-items:center; } .banner-links{ flex-direction:column; } }
+    /* Chat Box */
+    .chat-container { max-width:600px; margin:30px auto; }
+    .chat-box { width:100%; padding:10px; border:1px solid #ccc; border-radius:5px; margin-bottom:10px; min-height:100px; overflow-y:auto; background:#fff; }
+    .chat-input { display:flex; gap:10px; }
+    .chat-input input { flex:1; padding:10px; border-radius:5px; border:1px solid #ccc; }
+    .chat-input button { padding:10px 15px; border:none; border-radius:5px; background:#004aad; color:white; cursor:pointer; }
+    .chat-input button:hover { background:#002f6c; }
+    .message { margin:5px 0; padding:8px 10px; border-radius:5px; }
+    .user-msg { background:#d0e7ff; text-align:right; }
+    .ai-msg { background:#f0f0f0; text-align:left; }
   </style>
 </head>
 <body>
 
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PB2FBKT" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+  <header>
+    <h1>Welcome to My Practice Shop</h1>
+  </header>
 
-<header>
-  <h1>Welcome to My Practice Shop</h1>
-</header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="product.html">Products</a>
+    <a href="checkout.html">Checkout</a>
+    <a href="contact.html">Contact</a>
+  </nav>
 
-<nav>
-  <a href="index.html" id="nav-home" class="nav-link" onclick="dataLayer.push({event:'nav_click', page:'Home'});">Home</a>
-  <a href="product.html" id="nav-products" class="nav-link" onclick="dataLayer.push({event:'nav_click', page:'Products'});">Products</a>
-  <a href="checkout.html" id="nav-checkout" class="nav-link" onclick="dataLayer.push({event:'nav_click', page:'Checkout'});">Checkout</a>
-  <a href="contact.html" id="nav-contact" class="nav-link" onclick="dataLayer.push({event:'nav_click', page:'Contact'});">Contact</a>
-</nav>
+  <!-- Banner Section -->
+  <div class="banner-container">
+    <div class="banner-slide" id="slide1">
+      <img src="Images/Img1.png" alt="Banner 1">
+      <div class="banner-links">
+        <a href="product.html">Products</a>
+        <a href="checkout.html">Checkout</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="banner-slide" id="slide2">
+      <img src="Images/Img2.png" alt="Banner 2">
+    </div>
+    <div class="banner-slide" id="slide3">
+      <img src="Images/Img3.png" alt="Banner 3">
+    </div>
 
-<!-- Banner -->
-<div class="banner-container">
-  <div class="banner-slide" id="slide1">
-    <img src="https://via.placeholder.com/1200x300.png?text=Big+Sale+Banner" alt="Banner 1">
-    <div class="banner-links">
-      <a href="product.html" onclick="dataLayer.push({event:'banner_click', banner:'Banner 1', link:'Products'});">Products</a>
-      <a href="checkout.html" onclick="dataLayer.push({event:'banner_click', banner:'Banner 1', link:'Checkout'});">Checkout</a>
-      <a href="contact.html" onclick="dataLayer.push({event:'banner_click', banner:'Banner 1', link:'Contact'});">Contact</a>
+    <!-- Navigation Arrows -->
+    <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+    <button class="next" onclick="changeSlide(1)">&#10095;</button>
+  </div>
+
+  <!-- Featured Products -->
+  <h2 style="text-align:center;">Our Featured Products</h2>
+  <div class="products">
+    <div class="card">
+      <img src="Images/Img1.png" alt="Product 1">
+      <h3>Product One</h3>
+      <p>$49.99</p>
+      <button onclick="location.href='product.html'">View Details</button>
+    </div>
+    <div class="card">
+      <img src="Images/Img2.png" alt="Product 2">
+      <h3>Product Two</h3>
+      <p>$29.99</p>
+      <button onclick="location.href='product.html'">View Details</button>
+    </div>
+    <div class="card">
+      <img src="Images/Img3.png" alt="Product 3">
+      <h3>Product Three</h3>
+      <p>$19.99</p>
+      <button onclick="location.href='product.html'">View Details</button>
     </div>
   </div>
-  <div class="banner-slide" id="slide2">
-    <img src="https://via.placeholder.com/1200x300.png?text=New+Arrivals" alt="Banner 2">
-  </div>
-  <div class="banner-slide" id="slide3">
-    <img src="https://via.placeholder.com/1200x300.png?text=Special+Offers" alt="Banner 3">
+
+  <!-- ChatGPT AI Box -->
+  <div class="chat-container">
+    <div id="chatBox" class="chat-box"></div>
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Ask me anything about GA4...">
+      <button onclick="askAI()">Ask</button>
+    </div>
   </div>
 
-  <div class="banner-arrow left" onclick="changeSlide(-1)">&#10094;</div>
-  <div class="banner-arrow right" onclick="changeSlide(1)">&#10095;</div>
-</div>
+  <script>
+    // Banner slider
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.banner-slide');
+    showSlide(slideIndex);
+    function changeSlide(n) {
+      slideIndex += n;
+      if(slideIndex >= slides.length) slideIndex = 0;
+      if(slideIndex < 0) slideIndex = slides.length - 1;
+      showSlide(slideIndex);
+    }
+    function showSlide(index) {
+      slides.forEach((slide, i) => { slide.style.display = (i === index) ? 'block' : 'none'; });
+    }
 
-<h2 style="text-align:center;">Our Featured Products</h2>
-<div class="products">
-  <div class="card">
-    <img src="https://via.placeholder.com/250x150.png?text=Product+1" alt="Product 1">
-    <h3>Product One</h3>
-    <p>$49.99</p>
-    <button id="btn-product1-view" class="cta-btn" 
-      onclick="dataLayer.push({event:'view_item', item_name:'Product One'}); location.href='product.html';">
-      View Details
-    </button>
-  </div>
-  <div class="card">
-    <img src="https://via.placeholder.com/250x150.png?text=Product+2" alt="Product 2">
-    <h3>Product Two</h3>
-    <p>$29.99</p>
-    <button id="btn-product2-view" class="cta-btn" 
-      onclick="dataLayer.push({event:'view_item', item_name:'Product Two'}); location.href='product.html';">
-      View Details
-    </button>
-  </div>
-  <div class="card">
-    <img src="https://via.placeholder.com/250x150.png?text=Product+3" alt="Product 3">
-    <h3>Product Three</h3>
-    <p>$19.99</p>
-    <button id="btn-product3-view" class="cta-btn" 
-      onclick="dataLayer.push({event:'view_item', item_name:'Product Three'}); location.href='product.ht
+    // ChatGPT AI simulation (replace 'YOUR_REPLIT_URL' with your backend URL)
+    async function askAI() {
+      const input = document.getElementById('userInput');
+      const chatBox = document.getElementById('chatBox');
+      if(!input.value) return;
+
+      // Show user message
+      const userMsgDiv = document.createElement('div');
+      userMsgDiv.className = 'message user-msg';
+      userMsgDiv.innerText = input.value;
+      chatBox.appendChild(userMsgDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      const question = input.value;
+      input.value = '';
+
+      // Fetch AI response from backend
+      try {
+        const response = await fetch('YOUR_REPLIT_URL', {
+          method: 'POST',
+          headers: { 'Content-Type':'application/json' },
+          body: JSON.stringify({ prompt: question })
+        });
+        const data = await response.json();
+        const aiMsgDiv = document.createElement('div');
+        aiMsgDiv.className = 'message ai-msg';
+        aiMsgDiv.innerText = data.answer || "Sorry, no answer available.";
+        chatBox.appendChild(aiMsgDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      } catch(err) {
+        const aiMsgDiv = document.createElement('div');
+        aiMsgDiv.className = 'message ai-msg';
+        aiMsgDiv.innerText = "Error connecting to AI backend.";
+        chatBox.appendChild(aiMsgDiv);
+      }
+    }
+  </script>
+</body>
+</html>
