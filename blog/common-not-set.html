@@ -3,45 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Common GA4 Not Set Issues</title>
+<title>Common "Not Set" Issues - GA4 Blog</title>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5PB2FBKT');</script>
+
 <style>
-body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin:0; padding:0; background:#f9f9f9; color:#333; }
-header { background:#004aad; color:white; padding:25px 20px; text-align:center; font-size:24px; font-weight:bold; }
+body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin:0; padding:0; background:#f9f9f9; color:#333; line-height:1.7; }
+header { background:#004aad; color:white; padding:25px; text-align:center; font-size:28px; font-weight:bold; }
 nav { margin:10px 0; text-align:center; }
 nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:600; font-size:16px; }
-.content { max-width:900px; margin:40px auto; background:white; padding:35px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
-.content h2 { color:#004aad; font-size:22px; margin-bottom:20px; }
-.content p, .content li { font-size:16px; line-height:1.7; color:#555; margin-bottom:15px; }
+.blog-content { max-width:900px; margin:40px auto; background:white; padding:35px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
+.blog-content h2 { color:#004aad; margin-bottom:15px; font-size:24px; }
+.blog-content p { margin-bottom:15px; font-size:16px; }
 </style>
 </head>
 <body>
 
-<header>Common GA4 Issues</header>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PB2FBKT"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header>Common "Not Set" Issues</header>
 
 <nav>
-  <a href="blog.html">Blog Home</a>
   <a href="../index.html">Home</a>
+  <a href="../product.html">Products</a>
+  <a href="../checkout.html">Checkout</a>
+  <a href="../contact.html">Contact</a>
+  <a href="../blog.html">Blog</a>
 </nav>
 
-<div class="content">
-  <h2>Common "Not Set" Issues in GA4</h2>
-  <p>Many GA4 reports show "(not set)" due to missing or misconfigured parameters, affecting dimensions like source/medium, campaign, or page title.</p>
-  <p>Causes:</p>
+<div class="blog-content">
+  <h2>Understanding 'Not Set'</h2>
+  <p>'Not Set' appears in GA4 when certain data points are missing in your reports, often due to improper configuration or missing tags.</p>
+  <h3>Common Causes:</h3>
   <ul>
-    <li>Improper tagging on website or app.</li>
-    <li>Missing URL parameters for campaigns.</li>
-    <li>Incorrect event configuration in GA4.</li>
-    <li>Data sampling or filters misapplied.</li>
+    <li>Missing event parameters or tracking codes.</li>
+    <li>Improperly configured data streams.</li>
+    <li>Users with blocked cookies or ad blockers.</li>
+    <li>Incorrect implementation in GTM.</li>
   </ul>
-  <p>Solutions:</p>
-  <ul>
-    <li>Verify all event tags and parameters.</li>
-    <li>Ensure UTM parameters are correctly applied for campaigns.</li>
-    <li>Use GTM or manual code to fix missing tracking.</li>
-    <li>Check and correct filters in GA4 reports.</li>
-  </ul>
+  <p>Regular audits and proper tag management help eliminate most 'Not Set' issues, providing accurate reporting.</p>
 </div>
 
 </body>
 </html>
-
