@@ -3,58 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GA4 Practice Site</title>
+<title>GA4 Practice Shop</title>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5PB2FBKT');</script>
+<!-- End Google Tag Manager -->
 
 <style>
-body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin:0; padding:0; background:#f9f9f9; color:#333; }
-header { background:#004aad; color:white; padding:25px 20px; text-align:center; font-size:24px; font-weight:bold; }
+body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin:0; padding:0; background:#f9f9f9; color:#333; }
+header { background:#004aad; color:white; padding:25px; text-align:center; font-size:28px; font-weight:bold; }
 nav { margin:10px 0; text-align:center; }
 nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:600; font-size:16px; }
-
-/* Banner */
-.banner-container { position: relative; max-width: 100%; margin:auto; overflow:hidden; height:300px; border-radius:10px; }
-.banner-slide { display: none; height: 100%; position:relative; }
-.banner-slide img { width:100%; height:100%; object-fit:cover; border-radius:10px; }
-.banner-text { position:absolute; bottom:20px; left:20px; background:rgba(0,0,0,0.5); color:white; padding:15px; border-radius:8px; max-width:300px; z-index:2; }
-.banner-text h3 { margin:0 0 5px 0; font-size:18px; }
-.banner-text p { margin:0 0 10px 0; font-size:14px; }
-.banner-text button { background:#004aad; color:white; border:none; padding:8px 12px; cursor:pointer; border-radius:5px; font-weight:600; }
-.banner-text button:hover { background:#002f6c; }
-.prev, .next { cursor:pointer; position:absolute; top:50%; width:auto; margin-top:-25px; padding:15px; color:white; font-weight:bold; font-size:24px; border:none; background:rgba(0,0,0,0.3); border-radius:50%; user-select:none; transition:0.3s; }
-.prev:hover, .next:hover { background:rgba(0,0,0,0.6); }
-.prev { left:15px; }
-.next { right:15px; }
-
-/* Products */
-.section { padding:50px 20px; text-align:center; }
-.section h2 { color:#004aad; margin-bottom:40px; font-size:28px; }
-.products { display:flex; justify-content:center; flex-wrap:wrap; gap:25px; }
-.card { background:white; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); width:260px; text-align:center; padding:15px; transition: transform 0.3s, box-shadow 0.3s; }
-.card:hover { transform:translateY(-8px); box-shadow:0 6px 18px rgba(0,0,0,0.2); }
-.card img { width:100%; height:160px; object-fit:cover; border-radius:10px; }
-.card h3 { margin:15px 0 10px 0; font-size:18px; color:#004aad; }
-.card p { font-size:16px; color:#555; margin:0 0 10px 0; }
-.card button { background:#004aad; color:white; border:none; padding:10px 15px; margin-top:5px; cursor:pointer; border-radius:5px; font-weight:600; transition:0.3s; }
+.banner { position:relative; max-width:1200px; margin:20px auto; border-radius:10px; overflow:hidden; }
+.banner img { width:100%; max-height:300px; object-fit:cover; display:block; }
+.banner-text { position:absolute; bottom:20px; left:30px; background:rgba(0,0,0,0.6); color:white; padding:15px 20px; border-radius:8px; }
+.banner-text h3 { margin:0 0 10px 0; font-size:22px; }
+.banner-text a { display:inline-block; margin-top:10px; padding:8px 15px; background:#ff9900; color:white; text-decoration:none; border-radius:5px; font-weight:bold; }
+.products { display:flex; justify-content:center; flex-wrap:wrap; gap:20px; padding:20px; }
+.card { background:white; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.1); width:260px; text-align:center; padding:20px; transition:transform 0.3s; }
+.card:hover { transform:translateY(-5px); }
+.card img { width:100%; height:180px; object-fit:cover; border-radius:8px; }
+.card h3 { color:#004aad; margin:15px 0 10px; }
+.card p { font-size:16px; color:#555; margin-bottom:15px; }
+.card button { background:#004aad; color:white; border:none; padding:10px 15px; cursor:pointer; border-radius:5px; font-weight:bold; }
 .card button:hover { background:#002f6c; }
-
-/* Info Sections */
-.info-section { background:white; max-width:1000px; margin:40px auto; padding:35px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); text-align:left; }
-.info-section h3 { color:#004aad; font-size:20px; margin-bottom:15px; }
-.info-section p { font-size:16px; line-height:1.7; color:#555; }
-.read-more { display:inline-block; margin-top:10px; color:#004aad; text-decoration:none; font-weight:bold; }
-.read-more:hover { text-decoration:underline; }
-
-@media (max-width:768px) {
-  .products { flex-direction:column; align-items:center; }
-  .banner-container { height:220px; }
-  .section h2 { font-size:24px; }
-  .card { width:90%; max-width:300px; }
-}
+.section { max-width:1000px; margin:40px auto; background:white; padding:35px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
+.section h2 { color:#004aad; font-size:22px; margin-bottom:15px; }
+.section p { font-size:16px; line-height:1.7; color:#555; margin-bottom:15px; }
+.section a { display:inline-block; margin-top:10px; padding:8px 15px; background:#ff9900; color:white; text-decoration:none; border-radius:5px; font-weight:bold; }
 </style>
 </head>
 <body>
 
-<header>Welcome to Preetlytics</header>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PB2FBKT"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header>Welcome to My Practice Shop</header>
 
 <nav>
   <a href="index.html">Home</a>
@@ -63,97 +52,69 @@ nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:600; fon
   <a href="contact.html">Contact</a>
 </nav>
 
-<!-- Banner -->
-<div class="banner-container">
-  <div class="banner-slide">
-    <img src="Images/Img1.png" alt="Banner 1">
-    <div class="banner-text">
-      <h3>Audit Your GA4 Setup</h3>
-      <p>Ensure accurate tracking and reliable data for analysis.</p>
-      <button onclick="location.href='blog/what-is-ga4.html'">Read More</button>
-    </div>
+<div class="banner">
+  <img src="Images/Img1.png" alt="Banner 1">
+  <div class="banner-text">
+    <h3>Audit Your GA4 Setup</h3>
+    <a href="blog/what-is-ga4.html" id="banner1-btn" class="cta-btn" data-layer="banner1-click">Read More</a>
   </div>
-  <div class="banner-slide">
-    <img src="Images/Img2.png" alt="Banner 2">
-    <div class="banner-text">
-      <h3>Common GA4 Issues</h3>
-      <p>Resolve "Not Set" issues for better reporting accuracy.</p>
-      <button onclick="location.href='blog/common-not-set.html'">Read More</button>
-    </div>
-  </div>
-  <div class="banner-slide">
-    <img src="Images/Img3.png" alt="Banner 3">
-    <div class="banner-text">
-      <h3>What is GTM?</h3>
-      <p>Manage all tracking codes efficiently without touching code.</p>
-      <button onclick="location.href='blog/what-is-gtm.html'">Read More</button>
-    </div>
-  </div>
-
-  <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
-  <button class="next" onclick="changeSlide(1)">&#10095;</button>
 </div>
 
-<!-- Featured Products -->
+<div class="banner">
+  <img src="Images/Img2.png" alt="Banner 2">
+  <div class="banner-text">
+    <h3>Common "Not Set" Issues</h3>
+    <a href="blog/common-not-set.html" id="banner2-btn" class="cta-btn" data-layer="banner2-click">Read More</a>
+  </div>
+</div>
+
+<div class="banner">
+  <img src="Images/Img3.png" alt="Banner 3">
+  <div class="banner-text">
+    <h3>What is GTM?</h3>
+    <a href="blog/what-is-gtm.html" id="banner3-btn" class="cta-btn" data-layer="banner3-click">Read More</a>
+  </div>
+</div>
+
+<h2 style="text-align:center; margin-top:40px;">Our Featured Products</h2>
+<div class="products">
+  <div class="card">
+    <img src="Images/Img1.png" alt="Product 1">
+    <h3>Product One</h3>
+    <p>$49.99</p>
+    <button onclick="location.href='checkout.html'" id="product1-btn" class="cta-btn" data-layer="product1-click">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="Images/Img2.png" alt="Product 2">
+    <h3>Product Two</h3>
+    <p>$29.99</p>
+    <button onclick="location.href='checkout.html'" id="product2-btn" class="cta-btn" data-layer="product2-click">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="Images/Img3.png" alt="Product 3">
+    <h3>Product Three</h3>
+    <p>$19.99</p>
+    <button onclick="location.href='checkout.html'" id="product3-btn" class="cta-btn" data-layer="product3-click">Add to Cart</button>
+  </div>
+</div>
+
 <div class="section">
-  <h2>Our Featured Products</h2>
-  <div class="products">
-    <div class="card">
-      <img src="Images/Img1.png" alt="Product 1">
-      <h3>Product One</h3>
-      <p>$49.99</p>
-      <button onclick="location.href='product.html'">View Details</button>
-    </div>
-    <div class="card">
-      <img src="Images/Img2.png" alt="Product 2">
-      <h3>Product Two</h3>
-      <p>$29.99</p>
-      <button onclick="location.href='product.html'">View Details</button>
-    </div>
-    <div class="card">
-      <img src="Images/Img3.png" alt="Product 3">
-      <h3>Product Three</h3>
-      <p>$19.99</p>
-      <button onclick="location.href='product.html'">View Details</button>
-    </div>
-  </div>
+  <h2>Audit Your GA4 Setup</h2>
+  <p>Ensure accurate tracking of events, conversions, and user interactions through regular GA4 audits.</p>
+  <a href="blog/what-is-ga4.html" id="audit-btn" class="cta-btn" data-layer="audit-btn-click">Read More</a>
 </div>
 
-<!-- Info Sections -->
-<div class="info-section">
-  <h3>Audit Your GA4 Setup</h3>
-  <p>Regular GA4 audits ensure your tracking is accurate, your events are firing correctly, and your data is reliable for analysis.</p>
-  <a class="read-more" href="blog/what-is-ga4.html">Read More</a>
+<div class="section">
+  <h2>Common "Not Set" Issues</h2>
+  <p>Resolve missing or misconfigured parameters affecting GA4 dimensions and reports.</p>
+  <a href="blog/common-not-set.html" id="notset-btn" class="cta-btn" data-layer="notset-btn-click">Read More</a>
 </div>
 
-<div class="info-section">
-  <h3>Common GA4 Issues & Solutions</h3>
-  <p>Many GA4 setups face "Not Set" issues in reports due to missing or misconfigured parameters.</p>
-  <a class="read-more" href="blog/common-not-set.html">Read More</a>
+<div class="section">
+  <h2>What is GTM?</h2>
+  <p>Google Tag Manager allows you to manage all website tags efficiently without editing code.</p>
+  <a href="blog/what-is-gtm.html" id="gtm-btn" class="cta-btn" data-layer="gtm-btn-click">Read More</a>
 </div>
-
-<div class="info-section">
-  <h3>What is Google Tag Manager (GTM)?</h3>
-  <p>GTM is a tag management system that allows you to deploy and manage tracking codes on your website without touching the code directly.</p>
-  <a class="read-more" href="blog/what-is-gtm.html">Read More</a>
-</div>
-
-<script>
-let slideIndex = 0;
-const slides = document.querySelectorAll('.banner-slide');
-showSlide(slideIndex);
-
-function changeSlide(n) {
-  slideIndex += n;
-  if(slideIndex >= slides.length) slideIndex = 0;
-  if(slideIndex < 0) slideIndex = slides.length - 1;
-  showSlide(slideIndex);
-}
-
-function showSlide(index) {
-  slides.forEach((slide,i)=>{slide.style.display=(i===index)?'block':'none';});
-}
-</script>
 
 </body>
 </html>
