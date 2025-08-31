@@ -1,67 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us - GA4 Practice Shop</title>
 
-  <!-- Google Tag Manager -->
+<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-5PB2FBKT');</script>
-<!-- End Google Tag Manager -->
-  
-  <style>
-    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f9f9f9; }
-    header { background:#004aad; color:white; padding:15px; text-align:center; }
-    nav { margin:10px; text-align:center; }
-    nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; }
-    .form-container { max-width:450px; margin:30px auto; background:white; padding:25px; border-radius:5px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
-    h2 { text-align:center; color:#004aad; }
-    input, select, textarea, button { width:100%; padding:12px; margin:10px 0; border-radius:4px; border:1px solid #ccc; font-size:14px; }
-    textarea { resize:none; height:100px; }
-    button { background:#004aad; color:white; border:none; cursor:pointer; font-weight:bold; }
-    button:hover { background:#002f6c; }
-    .note { font-size:13px; color:#777; text-align:center; margin-top:10px; }
-  </style>
+
+<style>
+body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin:0; padding:0; background:#f9f9f9; }
+header { background:#004aad; color:white; padding:25px; text-align:center; font-size:28px; font-weight:bold; }
+nav { margin:10px 0; text-align:center; }
+nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:600; font-size:16px; }
+.form-container { max-width:500px; margin:40px auto; background:white; padding:30px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
+input, select, textarea, button { width:100%; padding:12px; margin:10px 0; border-radius:5px; border:1px solid #ccc; font-size:16px; }
+textarea { resize:none; height:120px; }
+button { background:#004aad; color:white; border:none; cursor:pointer; font-weight:bold; }
+button:hover { background:#002f6c; }
+h2 { text-align:center; color:#004aad; margin-bottom:20px; }
+.note { font-size:14px; color:#555; text-align:center; margin-top:10px; }
+</style>
 </head>
 <body>
 
-  <!-- Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PB2FBKT"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  
-  <header>
-    <h1>Contact Us</h1>
-  </header>
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="product.html">Products</a>
-    <a href="checkout.html">Checkout</a>
-    <a href="contact.html">Contact</a>
-  </nav>
+<header>Contact Us</header>
 
-  <div class="form-container">
-    <h2>Get a Free Consultation</h2>
-    <form action="thankyou.html" method="get">
-      <input type="text" name="name" placeholder="Full Name" required>
-      <input type="email" name="email" placeholder="Email Address" required>
-      <input type="tel" name="phone" placeholder="Phone Number" required>
-      <select name="service" required>
-        <option value="">Select Service of Interest</option>
-        <option value="loans">Loans</option>
-        <option value="insurance">Insurance</option>
-        <option value="credit-cards">Credit Cards</option>
-        <option value="investment">Investment Plans</option>
-      </select>
-      <textarea name="message" placeholder="Your Message (Optional)"></textarea>
-      <button type="submit">Submit Lead</button>
-    </form>
-    <p class="note">Our team will reach out within 24 hours.</p>
-  </div>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="product.html">Products</a>
+  <a href="checkout.html">Checkout</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<div class="form-container">
+  <h2>Get a Free Consultation</h2>
+  <form action="thankyou.html" method="get">
+    <input type="text" name="name" placeholder="Full Name" required id="contact-name">
+    <input type="email" name="email" placeholder="Email Address" required id="contact-email">
+    <input type="tel" name="phone" placeholder="Phone Number" required id="contact-phone">
+    <select name="service" required id="contact-service">
+      <option value="">Select Service</option>
+      <option value="loans">Loans</option>
+      <option value="insurance">Insurance</option>
+      <option value="credit-cards">Credit Cards</option>
+      <option value="investment">Investment Plans</option>
+    </select>
+    <textarea name="message" placeholder="Your Message (Optional)" id="contact-message"></textarea>
+    <button type="submit" id="contact-btn" class="cta-btn" data-layer="contact-submit">Submit</button>
+  </form>
+  <p class="note">Our team will reach out within 24 hours.</p>
+</div>
+
 </body>
 </html>
