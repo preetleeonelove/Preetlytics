@@ -7,38 +7,40 @@
 
   <style>
     body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f9f9f9; color:#333; }
-    header { background:#004aad; color:white; padding:15px; text-align:center; }
+    header { background:#004aad; color:white; padding:20px; text-align:center; }
     nav { margin:10px; text-align:center; }
-    nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; }
+    nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; font-size:16px; }
     
     /* Banner Styles */
-    .banner-container { position: relative; max-width: 100%; margin: auto; overflow: hidden; }
-    .banner-slide { display: none; position: relative; }
-    .banner-slide img { width: 100%; height: auto; }
+    .banner-container { position: relative; max-width: 100%; margin: auto; overflow: hidden; height: 400px; }
+    .banner-slide { display: none; position: relative; height: 100%; }
+    .banner-slide img { width: 100%; height: 100%; object-fit: cover; }
     .banner-links { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); text-align: center; }
-    .banner-links a { margin: 0 10px; padding: 8px 12px; background: #004aad; color: white; text-decoration: none; border-radius: 4px; }
+    .banner-links a { margin: 0 10px; padding: 10px 15px; background: #004aad; color: white; text-decoration: none; border-radius: 4px; font-weight:bold; }
     .prev, .next { cursor: pointer; position: absolute; top: 50%; width: auto; margin-top: -20px; padding: 12px; color: white; font-weight: bold; font-size: 24px; border: none; background: rgba(0,0,0,0.3); border-radius: 50%; user-select: none; }
     .prev { left: 10px; }
     .next { right: 10px; }
     .prev:hover, .next:hover { background: rgba(0,0,0,0.6); }
 
     /* Products Section */
-    .products { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; padding: 20px; }
-    .card { background: white; border-radius:5px; box-shadow:0 2px 6px rgba(0,0,0,0.1); width:250px; text-align:center; padding:15px; }
+    .section { padding: 50px 20px; text-align:center; }
+    .section h2 { color:#004aad; margin-bottom:30px; }
+    .products { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
+    .card { background: white; border-radius:5px; box-shadow:0 2px 6px rgba(0,0,0,0.1); width:250px; text-align:center; padding:15px; transition: transform 0.2s; }
+    .card:hover { transform: translateY(-5px); }
     .card img { width:100%; height:150px; object-fit:cover; border-radius:5px; }
     .card button { background:#004aad; color:white; border:none; padding:10px 15px; margin-top:10px; cursor:pointer; border-radius:3px; }
     .card button:hover { background:#002f6c; }
 
-    /* Chat Box */
-    .chat-container { max-width:600px; margin:30px auto; }
-    .chat-box { width:100%; padding:10px; border:1px solid #ccc; border-radius:5px; margin-bottom:10px; min-height:100px; overflow-y:auto; background:#fff; }
-    .chat-input { display:flex; gap:10px; }
-    .chat-input input { flex:1; padding:10px; border-radius:5px; border:1px solid #ccc; }
-    .chat-input button { padding:10px 15px; border:none; border-radius:5px; background:#004aad; color:white; cursor:pointer; }
-    .chat-input button:hover { background:#002f6c; }
-    .message { margin:5px 0; padding:8px 10px; border-radius:5px; }
-    .user-msg { background:#d0e7ff; text-align:right; }
-    .ai-msg { background:#f0f0f0; text-align:left; }
+    /* Info Sections */
+    .info-section { background:white; max-width:1000px; margin:30px auto; padding:30px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1); text-align:left; }
+    .info-section h3 { color:#004aad; margin-bottom:15px; }
+    .info-section p { font-size:16px; line-height:1.6; color:#555; }
+
+    @media (max-width:768px) {
+      .products { flex-direction: column; align-items:center; }
+      .banner-container { height:250px; }
+    }
   </style>
 </head>
 <body>
@@ -77,35 +79,44 @@
   </div>
 
   <!-- Featured Products -->
-  <h2 style="text-align:center;">Our Featured Products</h2>
-  <div class="products">
-    <div class="card">
-      <img src="Images/Img1.png" alt="Product 1">
-      <h3>Product One</h3>
-      <p>$49.99</p>
-      <button onclick="location.href='product.html'">View Details</button>
-    </div>
-    <div class="card">
-      <img src="Images/Img2.png" alt="Product 2">
-      <h3>Product Two</h3>
-      <p>$29.99</p>
-      <button onclick="location.href='product.html'">View Details</button>
-    </div>
-    <div class="card">
-      <img src="Images/Img3.png" alt="Product 3">
-      <h3>Product Three</h3>
-      <p>$19.99</p>
-      <button onclick="location.href='product.html'">View Details</button>
+  <div class="section">
+    <h2>Our Featured Products</h2>
+    <div class="products">
+      <div class="card">
+        <img src="Images/Img1.png" alt="Product 1">
+        <h3>Product One</h3>
+        <p>$49.99</p>
+        <button onclick="location.href='product.html'">View Details</button>
+      </div>
+      <div class="card">
+        <img src="Images/Img2.png" alt="Product 2">
+        <h3>Product Two</h3>
+        <p>$29.99</p>
+        <button onclick="location.href='product.html'">View Details</button>
+      </div>
+      <div class="card">
+        <img src="Images/Img3.png" alt="Product 3">
+        <h3>Product Three</h3>
+        <p>$19.99</p>
+        <button onclick="location.href='product.html'">View Details</button>
+      </div>
     </div>
   </div>
 
-  <!-- ChatGPT AI Box -->
-  <div class="chat-container">
-    <div id="chatBox" class="chat-box"></div>
-    <div class="chat-input">
-      <input type="text" id="userInput" placeholder="Ask me anything about GA4...">
-      <button onclick="askAI()">Ask</button>
-    </div>
+  <!-- Additional Info Sections -->
+  <div class="info-section">
+    <h3>Audit Your GA4 Setup</h3>
+    <p>Regular GA4 audits ensure your tracking is accurate, your events are firing correctly, and your data is reliable for analysis. Identify missing tags, incorrect event parameters, and optimize your setup for better insights.</p>
+  </div>
+
+  <div class="info-section">
+    <h3>Common GA4 Issues & Solutions</h3>
+    <p>Many GA4 setups face "Not Set" issues in reports due to missing or misconfigured parameters. We can guide you on how to configure events properly, fix missing dimensions, and ensure your data is clean and actionable.</p>
+  </div>
+
+  <div class="info-section">
+    <h3>What is Google Tag Manager (GTM)?</h3>
+    <p>GTM is a tag management system that allows you to deploy and manage tracking codes on your website without touching the code directly. Using GTM with GA4 simplifies event tracking, reduces errors, and helps maintain a clean data layer.</p>
   </div>
 
   <script>
@@ -122,43 +133,7 @@
     function showSlide(index) {
       slides.forEach((slide, i) => { slide.style.display = (i === index) ? 'block' : 'none'; });
     }
-
-    // ChatGPT AI simulation (replace 'YOUR_REPLIT_URL' with your backend URL)
-    async function askAI() {
-      const input = document.getElementById('userInput');
-      const chatBox = document.getElementById('chatBox');
-      if(!input.value) return;
-
-      // Show user message
-      const userMsgDiv = document.createElement('div');
-      userMsgDiv.className = 'message user-msg';
-      userMsgDiv.innerText = input.value;
-      chatBox.appendChild(userMsgDiv);
-      chatBox.scrollTop = chatBox.scrollHeight;
-
-      const question = input.value;
-      input.value = '';
-
-      // Fetch AI response from backend
-      try {
-        const response = await fetch('YOUR_REPLIT_URL', {
-          method: 'POST',
-          headers: { 'Content-Type':'application/json' },
-          body: JSON.stringify({ prompt: question })
-        });
-        const data = await response.json();
-        const aiMsgDiv = document.createElement('div');
-        aiMsgDiv.className = 'message ai-msg';
-        aiMsgDiv.innerText = data.answer || "Sorry, no answer available.";
-        chatBox.appendChild(aiMsgDiv);
-        chatBox.scrollTop = chatBox.scrollHeight;
-      } catch(err) {
-        const aiMsgDiv = document.createElement('div');
-        aiMsgDiv.className = 'message ai-msg';
-        aiMsgDiv.innerText = "Error connecting to AI backend.";
-        chatBox.appendChild(aiMsgDiv);
-      }
-    }
   </script>
+
 </body>
 </html>
