@@ -18,13 +18,37 @@ header { background: #004aad; color:white; padding:15px; text-align:center; }
 nav { text-align:center; margin:10px 0; }
 nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; }
 
-.step-form { max-width:400px; margin:30px auto; background:white; padding:20px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
-.step-form h2 { text-align:center; margin-bottom:15px; }
+.banner-container { position: relative; max-width:1200px; margin:20px auto; overflow:hidden; border-radius:10px; }
+.banner-slide { display: none; position: relative; width:100%; }
+.banner-slide img { width:100%; height:350px; object-fit:cover; border-radius:10px; }
+.banner-text { position:absolute; bottom:30px; left:30px; background:rgba(0,0,0,0.6); color:white; padding:15px; border-radius:6px; max-width:70%; }
+.banner-text h2 { margin:0 0 10px 0; }
+.banner-text p { margin:0 0 10px 0; }
+.banner-text button { background:#004aad; color:white; border:none; padding:8px 12px; border-radius:4px; cursor:pointer; }
+.banner-text button:hover { background:#002f6c; }
+.arrow { cursor:pointer; position:absolute; top:50%; width:auto; padding:16px; margin-top:-22px; color:white; font-weight:bold; font-size:22px; border-radius:0 3px 3px 0; user-select:none; background:rgba(0,0,0,0.5); }
+.arrow.right { right:0; border-radius:3px 0 0 3px; }
+.arrow:hover { background:rgba(0,0,0,0.8); }
+
+.products { display:flex; justify-content:center; flex-wrap:wrap; gap:20px; padding:20px; }
+.card { background:white; border-radius:5px; box-shadow:0 2px 6px rgba(0,0,0,0.1); width:250px; text-align:center; padding:15px; }
+.card img { width:100%; height:150px; object-fit:cover; border-radius:5px; }
+.card button { background:#004aad; color:white; border:none; padding:10px 15px; margin-top:10px; cursor:pointer; border-radius:3px; }
+.card button:hover { background:#002f6c; }
+
+.section { max-width:900px; margin:40px auto; padding:20px; background:white; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+.section h3 { color:#004aad; margin-bottom:10px; }
+.section p { margin-bottom:10px; }
+.section a { color:#004aad; font-weight:bold; text-decoration:none; }
+.section a:hover { text-decoration:underline; }
+
+.journey { max-width:600px; margin:40px auto; padding:20px; background:white; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+.journey h3 { color:#004aad; margin-bottom:15px; }
 .step { display:none; }
-.step.active { display:block; }
-input[type="tel"] { width:100%; padding:10px; margin:10px 0; border:1px solid #ccc; border-radius:5px; font-size:16px; }
-button { background:#004aad; color:white; border:none; padding:10px 15px; border-radius:5px; cursor:pointer; margin-top:10px; }
-button:hover { background:#002f6c; }
+.step input, .step select { width:100%; padding:10px; margin:10px 0; border:1px solid #ccc; border-radius:5px; }
+.step button { background:#004aad; color:white; border:none; padding:10px 15px; border-radius:3px; cursor:pointer; }
+.step button:hover { background:#002f6c; }
+.error { color:red; font-size:14px; display:none; }
 </style>
 </head>
 <body>
@@ -42,64 +66,192 @@ button:hover { background:#002f6c; }
   <a href="blog.html">Blog</a>
 </nav>
 
-<!-- Phone Number Step Form -->
-<div class="step-form">
-  <h2>Enter Your Phone Number</h2>
-  <div class="step active" id="step1">
-    <label for="phone">Phone Number (10 digits)</label>
-    <input type="tel" id="phone" maxlength="10" pattern="[0-9]{10}" placeholder="Enter 10 digit mobile number" required>
-    <button onclick="submitPhone()">Next</button>
+<!-- Banner Slider -->
+<div class="banner-container">
+  <div class="banner-slide">
+    <img src="Images/Img1.png" alt="Banner 1">
+    <div class="banner-text">
+      <h2>Audit your GA4 Setup</h2>
+      <p>Check if your GA4 implementation is correct and complete.</p>
+      <button onclick="location.href='blog/what-is-ga4.html'">Read More</button>
+    </div>
+  </div>
+  <div class="banner-slide">
+    <img src="Images/Img2.png" alt="Banner 2">
+    <div class="banner-text">
+      <h2>Common Not Set Issue in GA4</h2>
+      <p>Understand why 'Not Set' appears and how to fix it.</p>
+      <button onclick="location.href='blog/common-not-set.html'">Read More</button>
+    </div>
+  </div>
+  <div class="banner-slide">
+    <img src="Images/Img3.png" alt="Banner 3">
+    <div class="banner-text">
+      <h2>What is GTM?</h2>
+      <p>Learn how Google Tag Manager simplifies tracking setup.</p>
+      <button onclick="location.href='blog/what-is-gtm.html'">Read More</button>
+    </div>
+  </div>
+  <a class="arrow left" onclick="changeSlide(-1)">&#10094;</a>
+  <a class="arrow right" onclick="changeSlide(1)">&#10095;</a>
+</div>
+
+<!-- User Journey Section -->
+<div class="journey">
+  <h3>Get Your Free GA4 Course</h3>
+  
+  <div id="step1" class="step" style="display:block;">
+    <label for="countryCode">Country Code</label>
+    <select id="countryCode">
+      <option value="+91">+91 (India)</option>
+      <option value="+1">+1 (USA)</option>
+      <option value="+44">+44 (UK)</option>
+      <option value="+61">+61 (Australia)</option>
+    </select>
+    <label for="phone">Phone Number</label>
+    <input type="text" id="phone" maxlength="10" placeholder="Enter 10 digit mobile number">
+    <div id="phoneError" class="error">Please enter a valid 10 digit phone number.</div>
+    <button onclick="nextStep(1)">Next</button>
+  </div>
+  
+  <div id="step2" class="step">
+    <input type="text" id="name" placeholder="Enter your name">
+    <button onclick="prevStep(2)">Back</button>
+    <button onclick="nextStep(2)">Next</button>
+  </div>
+  
+  <div id="step3" class="step">
+    <input type="date" id="dob">
+    <button onclick="prevStep(3)">Back</button>
+    <button onclick="nextStep(3)">Next</button>
+  </div>
+  
+  <div id="step4" class="step">
+    <input type="text" id="city" placeholder="Enter your city">
+    <button onclick="prevStep(4)">Back</button>
+    <button onclick="nextStep(4)">Next</button>
   </div>
 </div>
 
+<h2 style="text-align:center;">Our Featured Products</h2>
+<div class="products">
+  <div class="card">
+    <img src="Images/Img1.png" alt="Product 1">
+    <h3>Product One</h3>
+    <p>$49.99</p>
+    <button id="view-product-1" onclick="location.href='product.html'" data-layer="viewProduct1">View Details</button>
+  </div>
+  <div class="card">
+    <img src="Images/Img2.png" alt="Product 2">
+    <h3>Product Two</h3>
+    <p>$29.99</p>
+    <button id="view-product-2" onclick="location.href='product.html'" data-layer="viewProduct2">View Details</button>
+  </div>
+  <div class="card">
+    <img src="Images/Img3.png" alt="Product 3">
+    <h3>Product Three</h3>
+    <p>$19.99</p>
+    <button id="view-product-3" onclick="location.href='product.html'" data-layer="viewProduct3">View Details</button>
+  </div>
+</div>
+
+<!-- Sections below products -->
+<div class="section">
+  <h3>Audit Your GA4 Setup</h3>
+  <p>Ensure your GA4 is properly configured to track all important events and conversions.</p>
+  <a href="blog/what-is-ga4.html">Read More</a>
+</div>
+
+<div class="section">
+  <h3>Common Not Set Issue in GA4</h3>
+  <p>Discover why 'Not Set' appears and how you can resolve it quickly.</p>
+  <a href="blog/common-not-set.html">Read More</a>
+</div>
+
+<div class="section">
+  <h3>What is GTM?</h3>
+  <p>Learn about Google Tag Manager and how it simplifies tracking for your website.</p>
+  <a href="blog/what-is-gtm.html">Read More</a>
+</div>
+
 <script>
-// On page load, check if user_id exists in localStorage
-window.onload = function() {
-  const storedUserId = localStorage.getItem("user_id");
-  if (storedUserId) {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: "userLoaded",
-      user_id: storedUserId
-    });
-    console.log("Persisted user_id pushed:", storedUserId);
-  }
-};
+// --- Banner slider ---
+let currentSlide = 0;
+const slides = document.getElementsByClassName("banner-slide");
+function showSlide(n) {
+  if(n >= slides.length) currentSlide = 0;
+  else if(n < 0) currentSlide = slides.length-1;
+  else currentSlide = n;
+  for(let i=0; i<slides.length; i++) slides[i].style.display="none";
+  slides[currentSlide].style.display="block";
+}
+function changeSlide(n) { showSlide(currentSlide+n); }
+showSlide(currentSlide);
 
-function submitPhone() {
-  const phone = document.getElementById("phone").value.trim();
-
-  // Validate phone: must be 10 digits numeric
-  if (!/^[0-9]{10}$/.test(phone)) {
-    alert("Please enter a valid 10-digit numeric mobile number.");
-    return;
-  }
-
-  // Check if user_id already exists for this phone number
-  let users = JSON.parse(localStorage.getItem("users")) || {};
-  let userId;
-
-  if (users[phone]) {
-    userId = users[phone]; // existing user_id
+// --- Journey Form Validation ---
+function validatePhone() {
+  const phone = document.getElementById("phone").value;
+  const regex = /^[0-9]{10}$/;
+  if (!regex.test(phone)) {
+    document.getElementById("phoneError").style.display = "block";
+    return false;
   } else {
-    userId = "UID-" + Math.random().toString(36).substr(2,9);
-    users[phone] = userId;
-    localStorage.setItem("users", JSON.stringify(users));
+    document.getElementById("phoneError").style.display = "none";
+    return true;
+  }
+}
+
+// --- User ID Mapping ---
+function getUserId(phone) {
+  let storedMapping = JSON.parse(localStorage.getItem("userMapping")) || {};
+  
+  if (storedMapping[phone]) {
+    return storedMapping[phone];
+  } else {
+    const newUserId = "UID-" + Math.random().toString(36).substr(2, 9);
+    storedMapping[phone] = newUserId;
+    localStorage.setItem("userMapping", JSON.stringify(storedMapping));
+    return newUserId;
+  }
+}
+
+function nextStep(step) {
+  if (step === 1) {
+    if (!validatePhone()) return;
+
+    const phone = document.getElementById("phone").value;
+    const user_id = getUserId(phone);
+
+    dataLayer.push({
+      event: 'userIdentified',
+      phone: phone,
+      user_id: user_id,
+      countryCode: document.getElementById("countryCode").value
+    });
   }
 
-  // Save current user_id for persistence
-  localStorage.setItem("user_id", userId);
+  document.getElementById("step" + step).style.display = "none";
 
-  // Push to dataLayer
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event: "userSubmitted",
-    phone: phone,
-    user_id: userId
-  });
+  if (step === 4) {
+    dataLayer.push({
+      event: 'journeyCompleted',
+      countryCode: document.getElementById("countryCode").value,
+      phone: document.getElementById("phone").value,
+      user_id: getUserId(document.getElementById("phone").value),
+      name: document.getElementById("name").value,
+      dob: document.getElementById("dob").value,
+      city: document.getElementById("city").value
+    });
+    window.location.href = "product.html";
+  } else {
+    document.getElementById("step" + (step+1)).style.display = "block";
+    dataLayer.push({ event: 'step' + step + 'Completed' });
+  }
+}
 
-  console.log("Phone submitted:", phone, "Assigned user_id:", userId);
-  alert("Phone saved! Your user_id: " + userId);
+function prevStep(step) {
+  document.getElementById("step" + step).style.display = "none";
+  document.getElementById("step" + (step-1)).style.display = "block";
 }
 </script>
 
