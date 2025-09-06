@@ -29,6 +29,23 @@ nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:600; fon
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PB2FBKT"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
+<!-- User ID persistence script -->
+<script>
+  (function() {
+    let storedMapping = JSON.parse(localStorage.getItem("userMapping")) || {};
+    let currentPhone = Object.keys(storedMapping)[0]; // get first stored phone
+    if (currentPhone) {
+      let existingUserId = storedMapping[currentPhone];
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        event: "userRestored",
+        phone: currentPhone,
+        user_id: existingUserId
+      });
+    }
+  })();
+</script>
+  
 <header>GA4 Blog</header>
 
 <nav>
