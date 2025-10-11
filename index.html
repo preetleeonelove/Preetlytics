@@ -90,7 +90,7 @@ nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; }
     <div class="banner-text">
       <h2>Audit your GA4 Setup</h2>
       <p>Check if your GA4 implementation is correct and complete.</p>
-      <button onclick="location.href='blog/what-is-ga4.html'">Read More</button>
+      <button onclick="location.href='blog/what-is-ga4.html'" id="ban-clck">Read More</button>
     </div>
   </div>
   <div class="banner-slide">
@@ -98,7 +98,7 @@ nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; }
     <div class="banner-text">
       <h2>Common Not Set Issue in GA4</h2>
       <p>Understand why 'Not Set' appears and how to fix it.</p>
-      <button onclick="location.href='blog/common-not-set.html'">Read More</button>
+      <button onclick="location.href='blog/common-not-set.html'" id="ban-clck">Read More</button>
     </div>
   </div>
   <div class="banner-slide">
@@ -106,11 +106,11 @@ nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; }
     <div class="banner-text">
       <h2>What is GTM?</h2>
       <p>Learn how Google Tag Manager simplifies tracking setup.</p>
-      <button onclick="location.href='blog/what-is-gtm.html'">Read More</button>
+      <button onclick="location.href='blog/what-is-gtm.html'" id="ban-clck">Read More</button>
     </div>
   </div>
-  <a class="arrow left" onclick="changeSlide(-1)">&#10094;</a>
-  <a class="arrow right" onclick="changeSlide(1)">&#10095;</a>
+  <a class="arrow left" id="left-arrow" onclick="changeSlide(-1)">&#10094;</a>
+  <a class="arrow right" id="right-arrow" onclick="changeSlide(1)">&#10095;</a>
 </div>
 
 <!-- User Journey Section -->
@@ -128,25 +128,25 @@ nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; }
     <label for="phone">Phone Number</label>
     <input type="text" id="phone" maxlength="10" placeholder="Enter 10 digit mobile number">
     <div id="phoneError" class="error">Please enter a valid 10 digit phone number.</div>
-    <button onclick="nextStep(1)">Next</button>
+    <button onclick="nextStep(1)" id="stp1">Next</button>
   </div>
   
   <div id="step2" class="step">
     <input type="text" id="name" placeholder="Enter your name">
     <button onclick="prevStep(2)">Back</button>
-    <button onclick="nextStep(2)">Next</button>
+    <button onclick="nextStep(2)" id="stp2">Next</button>
   </div>
   
   <div id="step3" class="step">
     <input type="date" id="dob">
     <button onclick="prevStep(3)">Back</button>
-    <button onclick="nextStep(3)">Next</button>
+    <button onclick="nextStep(3)" id="stp3">Next</button>
   </div>
   
   <div id="step4" class="step">
     <input type="text" id="city" placeholder="Enter your city">
     <button onclick="prevStep(4)">Back</button>
-    <button onclick="nextStep(4)">Next</button>
+    <button onclick="nextStep(4)" id="stp4">Next</button>
   </div>
 </div>
 
@@ -176,19 +176,19 @@ nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; }
 <div class="section">
   <h3>Audit Your GA4 Setup</h3>
   <p>Ensure your GA4 is properly configured to track all important events and conversions.</p>
-  <a href="blog/what-is-ga4.html">Read More</a>
+  <a href="blog/what-is-ga4.html" id="section-clck">Read More</a>
 </div>
 
 <div class="section">
   <h3>Common Not Set Issue in GA4</h3>
   <p>Discover why 'Not Set' appears and how you can resolve it quickly.</p>
-  <a href="blog/common-not-set.html">Read More</a>
+  <a href="blog/common-not-set.html" id="section-clck">Read More</a>
 </div>
 
 <div class="section">
   <h3>What is GTM?</h3>
   <p>Learn about Google Tag Manager and how it simplifies tracking for your website.</p>
-  <a href="blog/what-is-gtm.html">Read More</a>
+  <a href="blog/what-is-gtm.html" id="section-clck">Read More</a>
 </div>
 
 <script>
