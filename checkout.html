@@ -89,6 +89,51 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 })();
 </script>
+
+<script>
+document.getElementById('checkout-btn').addEventListener('click', function(e) {
+  e.preventDefault(); // delay form submission for tracking
+
+  const name = document.getElementById('checkout-name').value;
+  const email = document.getElementById('checkout-email').value;
+  const address = document.getElementById('checkout-address').value;
+  const payment = document.getElementById('checkout-payment').value;
+
+  // Fetch product details (from localStorage or set it on this page if needed)
+  const productData = localStorage.getItem('selectedProduct');
+  const product = productData ? JSON.parse(productData) : null;
+
+  // Get user_id (if available from your persistence setup)
+  const storedMapping = JSON.parse(localStorage.getItem("userMapping")) || {};
+  const currentPhone = Object.keys(storedMapping)[0];
+  const user_id = currentPhone ? storedMapping[currentPhone] : null;
+
+  // Push purchase event to dataLayer
+  if (product) {
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({
+      event: "purchase",
+      ecommerce: {
+        transaction_id: "T" + Math.floor(Math.random() * 1000000),
+        value: parseFloat(product.price.replace('$','')),
+        currency: "USD",
+        items: [product]
+      },
+      user_id: user_id,
+      customer_name: name,
+      customer_email: email,
+      customer_address: address,
+      payment_method: payment
+    });
+  }
+
+  // Allow GTM time to capture, then submit the form
+  setTimeout(() => {
+    document.querySelector('form').submit();
+  }, 200);
+});
+</script>
+
   
 </body>
 </html>
