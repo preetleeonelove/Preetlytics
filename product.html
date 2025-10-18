@@ -80,5 +80,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </div>
 
+<script>
+// --- eCommerce: view_item tracking ---
+(function() {
+  const productData = localStorage.getItem('selectedProduct');
+  if (productData) {
+    const product = JSON.parse(productData);
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({
+      event: "view_item",
+      ecommerce: {
+        items: [product]
+      }
+    });
+    // Optional: clear storage after pushing
+    localStorage.removeItem('selectedProduct');
+  }
+})();
+</script>
+
+  
 </body>
 </html>
