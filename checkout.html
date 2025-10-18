@@ -71,5 +71,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </form>
 </div>
 
+script>
+// --- eCommerce: begin_checkout tracking ---
+(function() {
+  const productData = localStorage.getItem('selectedProduct');
+  if (productData) {
+    const product = JSON.parse(productData);
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({
+      event: "begin_checkout",
+      ecommerce: {
+        items: [product]
+      }
+    });
+    // Optional: clear storage after pushing
+    localStorage.removeItem('selectedProduct');
+  }
+})();
+</script>
+  
 </body>
 </html>
