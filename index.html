@@ -272,5 +272,32 @@ function prevStep(step) {
 }
 </script>
 
+<script>
+// --- eCommerce: select_item tracking ---
+document.querySelectorAll('.card button').forEach((button, index) => {
+  button.addEventListener('click', function() {
+    const card = this.closest('.card');
+    const product = {
+      item_name: card.querySelector('h3').innerText,
+      item_id: 'prod_' + (index + 1),
+      price: card.querySelector('p').innerText.replace('$', ''),
+      index: index + 1
+    };
+
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({
+      event: "select_item",
+      ecommerce: {
+        items: [product]
+      }
+    });
+
+    // Store product for next page
+    localStorage.setItem('selectedProduct', JSON.stringify(product));
+  });
+});
+</script>
+
+  
 </body>
 </html>
