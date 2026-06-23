@@ -201,20 +201,6 @@ function validatePhone() {
   }
 }
 
-// --- User ID Mapping ---
-function getUserId(phone) {
-  let storedMapping = JSON.parse(localStorage.getItem("userMapping")) || {};
-  
-  if (storedMapping[phone]) {
-    return storedMapping[phone];
-  } else {
-    const newUserId = "UID-" + Math.random().toString(36).substr(2, 9);
-    storedMapping[phone] = newUserId;
-    localStorage.setItem("userMapping", JSON.stringify(storedMapping));
-    return newUserId;
-  }
-}
-
 function nextStep(step) {
   if (step === 1) {
     if (!validatePhone()) return;
