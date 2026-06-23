@@ -68,7 +68,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }
     });
     // Optional: clear storage after pushing
-    localStorage.removeItem('selectedProduct');
+    // localStorage.removeItem('selectedProduct');
   }
 })();
 </script>
@@ -120,6 +120,10 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
 
+    // Optional: clear storage after pushing
+    localStorage.removeItem('selectedProduct');
+    
+   
     // --- Delay to allow GTM to capture before redirect ---
     setTimeout(() => {
       form.submit();
