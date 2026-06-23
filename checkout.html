@@ -30,23 +30,6 @@ h2 { text-align:center; color:#004aad; margin-bottom:20px; }
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PB2FBKT"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<!-- User ID persistence script -->
-<script>
-  (function() {
-    let storedMapping = JSON.parse(localStorage.getItem("userMapping")) || {};
-    let currentPhone = Object.keys(storedMapping)[0]; // get first stored phone
-    if (currentPhone) {
-      let existingUserId = storedMapping[currentPhone];
-      window.dataLayer = window.dataLayer || [];
-      dataLayer.push({
-        event: "userRestored",
-        phone: currentPhone,
-        user_id: existingUserId
-      });
-    }
-  })();
-</script>
-
 <header>Checkout</header>
 
 <nav>
@@ -118,16 +101,11 @@ document.addEventListener('DOMContentLoaded', function() {
       };
     }
 
-    // --- Get user_id if available ---
-    const storedMapping = JSON.parse(localStorage.getItem("userMapping")) || {};
-    const currentPhone = Object.keys(storedMapping)[0];
-    const user_id = currentPhone ? storedMapping[currentPhone] : null;
-
+   
     // --- Push purchase event to dataLayer ---
     window.dataLayer = window.dataLayer || [];
     dataLayer.push({
       event: "purchase",
-      user_id: user_id,
       ecommerce: {
         transaction_id: "TXN" + Date.now(),
         value: parseFloat(product.price),
