@@ -43,6 +43,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <h2>Billing Details</h2>
   <form action="thankyou.html" method="get">
     <input type="text" name="name" placeholder="Full Name" required id="checkout-name">
+    <input type="text" name="phone" placeholder="Phone Number" required id="checkout-phone">
     <input type="email" name="email" placeholder="Email Address" required id="checkout-email">
     <input type="text" name="address" placeholder="Shipping Address" required id="checkout-address">
     <select name="payment" required id="checkout-payment">
@@ -83,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- Get checkout details ---
     const name = document.getElementById('checkout-name').value;
+    const phone = document.getElementById('checkout-phone').value;
     const email = document.getElementById('checkout-email').value;
     const address = document.getElementById('checkout-address').value;
     const payment = document.getElementById('checkout-payment').value;
@@ -114,6 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
       },
       customer: {
         name: name,
+        phone: phone,
         email: email,
         address: address,
         payment_method: payment
