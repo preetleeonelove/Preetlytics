@@ -24,6 +24,7 @@ button { background:#004aad; color:white; border:none; cursor:pointer; font-weig
 button:hover { background:#002f6c; }
 h2 { text-align:center; color:#004aad; margin-bottom:20px; }
 .note { font-size:14px; color:#555; text-align:center; margin-top:10px; }
+.api-status { font-size:13px; color:#555; text-align:center; margin-top:5px; display:none; }
 </style>
 </head>
 <body>
@@ -32,7 +33,6 @@ h2 { text-align:center; color:#004aad; margin-bottom:20px; }
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PB2FBKT"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
- 
 <header>Contact Us</header>
 
 <nav>
@@ -40,27 +40,108 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a href="product.html" id="nav-product">Products</a>
   <a href="checkout.html" id="checkout">Checkout</a>
   <a href="contact.html" id="nav-contact">Contact</a>
- 
-</nav>  
-  
+</nav>
+
 <div class="form-container">
   <h2>Get a Free Consultation</h2>
-  <form action="thankyou.html" method="get">
-    <input type="text" name="name" placeholder="Full Name" required id="contact-name">
-    <input type="email" name="email" placeholder="Email Address" required id="contact-email">
-    <input type="tel" name="phone" placeholder="Phone Number" required id="contact-phone">
-    <select name="service" required id="contact-service">
-      <option value="">Select Service</option>
-      <option value="loans">Loans</option>
-      <option value="insurance">Insurance</option>
-      <option value="credit-cards">Credit Cards</option>
-      <option value="investment">Investment Plans</option>
-    </select>
-    <textarea name="message" placeholder="Your Message (Optional)" id="contact-message"></textarea>
-    <button type="submit" id="contact-btn" class="cta-btn" data-layer="contact-submit">Submit</button>
-  </form>
+  <input type="text" placeholder="Full Name" required id="contact-name">
+  <input type="email" placeholder="Email Address" required id="contact-email">
+  <input type="tel" placeholder="Phone Number" required id="contact-phone">
+  <select required id="contact-service">
+    <option value="">Select Service</option>
+    <option value="loans">Loans</option>
+    <option value="insurance">Insurance</option>
+    <option value="credit-cards">Credit Cards</option>
+    <option value="investment">Investment Plans</option>
+  </select>
+  <textarea placeholder="Your Message (Optional)" id="contact-message"></textarea>
+  <div id="apiStatus" class="api-status">Submitting...</div>
+  <button id="contact-btn" class="cta-btn">Submit</button>
   <p class="note">Our team will reach out within 24 hours.</p>
 </div>
+
+<script>
+const API_URL = 'https://preetlytics-backend-production.up.railway.app';
+
+document.getElementById('contact-btn').addEventListener('click', async function() {
+  const name    = document.getElementById('contact-name').value;
+  const email   = document.getElementById('contact-email').value;
+  const phone   = document.getElementById('contact-phone').value;
+  const service = document.getElementById('contact-service').value;
+  const message = document.getElementById('contact-message').value;
+
+  if (!name || !email || !phone || !service) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+
+  const statusEl = document.getElementById('apiStatus');
+  statusEl.style.display = 'block';
+  statusEl.textContent = 'Submitting...';
+
+  // ─────────────────────────────────────────
+  // IDENTIFY USER via contact form phone number
+  // Same logic as index.html — if phone exists
+  // in DB, returns same user_id (returning user)
+  // If new phone, creates new user_id
+  // ─────────────────────────────────────────
+  let userId = sessionStorage.getItem('user_id');
+
+  try {
+    const res = await fetch(API_URL + '/identify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        phone:        phone,
+        utm_source:   sessionStorage.getItem('utm_source') || 'direct',
+        utm_medium:   sessionStorage.getItem('utm_medium') || 'none',
+        utm_campaign: sessionStorage.getItem('utm_campaign') || 'none',
+        journey_type: 'bfsi_consultation'
+      })
+    });
+    const data = await res.json();
+
+    if (data.user_id) {
+      userId = data.user_id;
+      sessionStorage.setItem('user_id', userId);
+
+      // Update DB with name, email, service selected
+      await fetch(API_URL + '/user/' + userId, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:         name,
+          email:        email,
+          journey_step: 'contact_form_submitted',
+          journey_type: service
+        })
+      });
+    }
+  } catch(err) {
+    console.error('API error:', err);
+  }
+
+  // Push contact form event to GTM dataLayer
+  window.dataLayer = window.dataLayer || [];
+  dataLayer.push({
+    event:       'contact_form_submitted',
+    user_id:     userId || null,
+    form_data: {
+      name:    name,
+      email:   email,
+      phone:   phone,
+      service: service
+    }
+  });
+
+  statusEl.textContent = 'Submitted! We will reach out within 24 hours.';
+
+  // Redirect to thankyou page after short delay
+  setTimeout(() => {
+    window.location.href = 'thankyou.html';
+  }, 1000);
+});
+</script>
 
 </body>
 </html>
