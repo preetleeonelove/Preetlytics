@@ -22,6 +22,7 @@ input, select, button { width:100%; padding:12px; margin:10px 0; border-radius:5
 button { background:#004aad; color:white; border:none; cursor:pointer; font-weight:bold; }
 button:hover { background:#002f6c; }
 h2 { text-align:center; color:#004aad; margin-bottom:20px; }
+.api-status { font-size:13px; color:#555; text-align:center; margin-top:5px; display:none; }
 </style>
 </head>
 <body>
@@ -41,22 +42,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="form-container">
   <h2>Billing Details</h2>
-  <form action="thankyou.html" method="get">
-    <input type="text" name="name" placeholder="Full Name" required id="checkout-name">
-    <input type="tel" name="phone" placeholder="Phone Number" required id="checkout-phone">
-    <input type="email" name="email" placeholder="Email Address" required id="checkout-email">
-    <input type="text" name="address" placeholder="Shipping Address" required id="checkout-address">
-    <select name="payment" required id="checkout-payment">
-      <option value="">Select Payment Method</option>
-      <option value="card">Credit Card</option>
-      <option value="cod">Cash on Delivery</option>
-    </select>
-    <button type="submit" id="checkout-btn" class="cta-btn" data-layer="checkout-submit">Place Order</button>
-  </form>
+  <input type="text" placeholder="Full Name" required id="checkout-name">
+  <input type="tel" placeholder="Phone Number" required id="checkout-phone">
+  <input type="email" placeholder="Email Address" required id="checkout-email">
+  <input type="text" placeholder="Shipping Address" required id="checkout-address">
+  <select required id="checkout-payment">
+    <option value="">Select Payment Method</option>
+    <option value="card">Credit Card</option>
+    <option value="cod">Cash on Delivery</option>
+  </select>
+  <div id="apiStatus" class="api-status">Processing...</div>
+  <button id="checkout-btn" class="cta-btn">Place Order</button>
 </div>
 
 <script>
-// --- eCommerce: begin_checkout tracking ---
+const API_URL = 'https://preetlytics-backend-production.up.railway.app';
+
+// begin_checkout tracking on page load
 (function() {
   const productData = localStorage.getItem('selectedProduct');
   if (productData) {
@@ -64,78 +66,109 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     window.dataLayer = window.dataLayer || [];
     dataLayer.push({
       event: "begin_checkout",
-      ecommerce: {
-        items: [product]
-      }
+      user_id: sessionStorage.getItem('user_id') || null,
+      ecommerce: { items: [product] }
     });
-    // Optional: clear storage after pushing
-    // localStorage.removeItem('selectedProduct');
   }
 })();
-</script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const checkoutBtn = document.getElementById('checkout-btn');
-  const form = document.querySelector('form');
+document.getElementById('checkout-btn').addEventListener('click', async function() {
+  const name    = document.getElementById('checkout-name').value;
+  const phone   = document.getElementById('checkout-phone').value;
+  const email   = document.getElementById('checkout-email').value;
+  const address = document.getElementById('checkout-address').value;
+  const payment = document.getElementById('checkout-payment').value;
 
-  checkoutBtn.addEventListener('click', function(e) {
-    e.preventDefault(); // stop form from submitting immediately
+  if (!name || !phone || !email || !address || !payment) {
+    alert('Please fill in all fields.');
+    return;
+  }
 
-    // --- Get checkout details ---
-    const name = document.getElementById('checkout-name').value;
-    const phone = document.getElementById('checkout-phone').value;
-    const email = document.getElementById('checkout-email').value;
-    const address = document.getElementById('checkout-address').value;
-    const payment = document.getElementById('checkout-payment').value;
+  const statusEl = document.getElementById('apiStatus');
+  statusEl.style.display = 'block';
+  statusEl.textContent = 'Processing...';
 
-    // --- Get product info from localStorage ---
-    let productData = localStorage.getItem('selectedProduct');
-    let product = productData ? JSON.parse(productData) : null;
+  // ─────────────────────────────────────────
+  // IDENTIFY USER at checkout
+  // If user already identified via BFSI journey,
+  // sessionStorage already has user_id — API will
+  // recognise the phone and return the same user_id.
+  // If user skipped BFSI journey and came straight
+  // to checkout, this creates a new user_id for them.
+  // ─────────────────────────────────────────
+  let userId = sessionStorage.getItem('user_id');
 
-    // Fallback if product info missing
-    if (!product) {
-      product = {
-        item_id: "PRACTICE01",
-        item_name: "GA4 Practice Product",
-        price: 99.0,
-        currency: "USD"
-      };
-    }
+  if (!userId) {
+    try {
+      const res = await fetch(API_URL + '/identify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone:        phone,
+          utm_source:   sessionStorage.getItem('utm_source') || 'direct',
+          utm_medium:   sessionStorage.getItem('utm_medium') || 'none',
+          utm_campaign: sessionStorage.getItem('utm_campaign') || 'none',
+          journey_type: 'ecommerce_checkout'
+        })
+      });
+      const data = await res.json();
+      if (data.user_id) {
+        userId = data.user_id;
+        sessionStorage.setItem('user_id', userId);
 
-   
-    // --- Push purchase event to dataLayer ---
-    window.dataLayer = window.dataLayer || [];
-    dataLayer.push({
-      event: "purchase",
-      ecommerce: {
-        transaction_id: "TXN" + Date.now(),
-        value: parseFloat(product.price),
-        currency: "USD",
-        items: [product]
-      },
-      customer: {
-        name: name,
-        phone: phone,
-        email: email,
-        address: address,
-        payment_method: payment
+        // Update with name and email too
+        await fetch(API_URL + '/user/' + userId, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name:         name,
+            email:        email,
+            journey_step: 'checkout_identified'
+          })
+        });
       }
-    });
+    } catch(err) {
+      console.error('API error:', err);
+    }
+  }
 
-    // Optional: clear storage after pushing
-    localStorage.removeItem('selectedProduct');
-    
-   
-    // --- Delay to allow GTM to capture before redirect ---
-    setTimeout(() => {
-      form.submit();
-    }, 700);
+  // Get product info
+  let productData = localStorage.getItem('selectedProduct');
+  let product = productData ? JSON.parse(productData) : {
+    item_id: "PRACTICE01",
+    item_name: "GA4 Practice Product",
+    price: 99.0,
+    currency: "USD"
+  };
+
+  // Push purchase event to dataLayer with user_id
+  window.dataLayer = window.dataLayer || [];
+  dataLayer.push({
+    event: "purchase",
+    user_id: userId || null,
+    ecommerce: {
+      transaction_id: "TXN" + Date.now(),
+      value:          parseFloat(product.price),
+      currency:       "USD",
+      items:          [product]
+    },
+    customer: {
+      name:           name,
+      phone:          phone,
+      email:          email,
+      address:        address,
+      payment_method: payment
+    }
   });
+
+  localStorage.removeItem('selectedProduct');
+  statusEl.textContent = 'Order placed!';
+
+  setTimeout(() => {
+    window.location.href = 'thankyou.html';
+  }, 700);
 });
 </script>
 
-
-  
 </body>
 </html>
