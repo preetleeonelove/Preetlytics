@@ -49,13 +49,14 @@ nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; }
 .step button { background:#004aad; color:white; border:none; padding:10px 15px; border-radius:3px; cursor:pointer; }
 .step button:hover { background:#002f6c; }
 .error { color:red; font-size:14px; display:none; }
+.api-status { font-size:13px; color:#555; margin-top:5px; display:none; }
 </style>
 </head>
 <body>
 
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PB2FBKT" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
- 
+
 <header>Welcome to My Preetlytics</header>
 
 <nav>
@@ -111,6 +112,7 @@ nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; }
     <label for="phone">Phone Number</label>
     <input type="text" id="phone" maxlength="10" placeholder="Enter 10 digit mobile number">
     <div id="phoneError" class="error">Please enter a valid 10 digit phone number.</div>
+    <div id="apiStatus" class="api-status">Verifying...</div>
     <button onclick="nextStep(1)" id="stp1">Next</button>
   </div>
   
@@ -175,7 +177,92 @@ nav a { margin:0 15px; text-decoration:none; color:#004aad; font-weight:bold; }
 </div>
 
 <script>
-// --- Banner slider ---
+// ─────────────────────────────────────────
+// YOUR RAILWAY API URL — do not change this
+// ─────────────────────────────────────────
+const API_URL = 'https://preetlytics-backend-production.up.railway.app';
+
+// ─────────────────────────────────────────
+// CAPTURE UTM PARAMS on page load
+// Reads utm_source, utm_medium, utm_campaign from URL
+// e.g. ?utm_source=whatsapp&utm_medium=referral
+// Stores them in sessionStorage so they travel
+// with every event in this session
+// ─────────────────────────────────────────
+(function captureUTM() {
+  const params = new URLSearchParams(window.location.search);
+  const utm = {
+    utm_source:   params.get('utm_source')   || sessionStorage.getItem('utm_source')   || 'direct',
+    utm_medium:   params.get('utm_medium')   || sessionStorage.getItem('utm_medium')   || 'none',
+    utm_campaign: params.get('utm_campaign') || sessionStorage.getItem('utm_campaign') || 'none'
+  };
+  // Save to sessionStorage so other pages can read them
+  sessionStorage.setItem('utm_source',   utm.utm_source);
+  sessionStorage.setItem('utm_medium',   utm.utm_medium);
+  sessionStorage.setItem('utm_campaign', utm.utm_campaign);
+})();
+
+// ─────────────────────────────────────────
+// IDENTIFY USER via API
+// Called when phone number is submitted
+// 1. Calls Railway API with phone + UTM data
+// 2. Gets back user_id (USR000001 etc.)
+// 3. Saves user_id to sessionStorage
+// 4. Pushes userIdentified event to GTM dataLayer
+// ─────────────────────────────────────────
+async function identifyUser(phone) {
+  const statusEl = document.getElementById('apiStatus');
+  statusEl.style.display = 'block';
+  statusEl.textContent = 'Verifying...';
+
+  try {
+    const response = await fetch(API_URL + '/identify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        phone:        phone,
+        utm_source:   sessionStorage.getItem('utm_source'),
+        utm_medium:   sessionStorage.getItem('utm_medium'),
+        utm_campaign: sessionStorage.getItem('utm_campaign'),
+        journey_type: 'bfsi_course'
+      })
+    });
+
+    const data = await response.json();
+
+    if (data.user_id) {
+      // Save user_id to sessionStorage — all pages can now read it
+      sessionStorage.setItem('user_id', data.user_id);
+
+      statusEl.textContent = data.is_new_user ? 'Welcome! Account created.' : 'Welcome back!';
+
+      // Push to GTM dataLayer — GA4 now receives user_id
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        event:       'userIdentified',
+        user_id:     data.user_id,
+        is_new_user: data.is_new_user,
+        phone:       phone,
+        countryCode: document.getElementById('countryCode').value,
+        utm_source:  sessionStorage.getItem('utm_source'),
+        utm_medium:  sessionStorage.getItem('utm_medium')
+      });
+
+      return true; // success
+    } else {
+      statusEl.textContent = 'Error. Please try again.';
+      return false;
+    }
+  } catch (err) {
+    console.error('API error:', err);
+    statusEl.textContent = 'Connection error. Please try again.';
+    return false;
+  }
+}
+
+// ─────────────────────────────────────────
+// BANNER SLIDER
+// ─────────────────────────────────────────
 let currentSlide = 0;
 const slides = document.getElementsByClassName("banner-slide");
 function showSlide(n) {
@@ -188,7 +275,9 @@ function showSlide(n) {
 function changeSlide(n) { showSlide(currentSlide+n); }
 showSlide(currentSlide);
 
-// --- Journey Form Validation ---
+// ─────────────────────────────────────────
+// JOURNEY FORM
+// ─────────────────────────────────────────
 function validatePhone() {
   const phone = document.getElementById("phone").value;
   const regex = /^[0-9]{10}$/;
@@ -201,34 +290,78 @@ function validatePhone() {
   }
 }
 
-function nextStep(step) {
+async function nextStep(step) {
   if (step === 1) {
     if (!validatePhone()) return;
 
     const phone = document.getElementById("phone").value;
-    
-    dataLayer.push({
-      event: 'userIdentified',
-      phone: phone,
-      countryCode: document.getElementById("countryCode").value
-    });
+
+    // Call the API to identify user BEFORE moving to next step
+    const success = await identifyUser(phone);
+    if (!success) return; // stop if API call failed
+  }
+
+  if (step === 2) {
+    // Update user record in database with name
+    const userId = sessionStorage.getItem('user_id');
+    if (userId) {
+      fetch(API_URL + '/user/' + userId, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: document.getElementById('name').value,
+          journey_step: 'step_2_name_filled'
+        })
+      });
+      dataLayer.push({ event: 'step2Completed', user_id: userId });
+    }
+  }
+
+  if (step === 3) {
+    // Update user record with DOB
+    const userId = sessionStorage.getItem('user_id');
+    if (userId) {
+      fetch(API_URL + '/user/' + userId, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ journey_step: 'step_3_dob_filled' })
+      });
+      dataLayer.push({ event: 'step3Completed', user_id: userId });
+    }
   }
 
   document.getElementById("step" + step).style.display = "none";
 
   if (step === 4) {
+    const userId = sessionStorage.getItem('user_id');
+    // Final step — update database and fire journeyCompleted
+    if (userId) {
+      fetch(API_URL + '/user/' + userId, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          journey_step: 'journey_completed'
+        })
+      });
+    }
     dataLayer.push({
-      event: 'journeyCompleted',
+      event:       'journeyCompleted',
+      user_id:     userId || null,
       countryCode: document.getElementById("countryCode").value,
-      phone: document.getElementById("phone").value,
-      name: document.getElementById("name").value,
-      dob: document.getElementById("dob").value,
-      city: document.getElementById("city").value
+      phone:       document.getElementById("phone").value,
+      name:        document.getElementById("name").value,
+      dob:         document.getElementById("dob").value,
+      city:        document.getElementById("city").value
     });
     window.location.href = "product.html";
   } else {
     document.getElementById("step" + (step+1)).style.display = "block";
-    dataLayer.push({ event: 'step' + step + 'Completed' });
+    if (step !== 1) {
+      dataLayer.push({
+        event:   'step' + step + 'Completed',
+        user_id: sessionStorage.getItem('user_id') || null
+      });
+    }
   }
 }
 
@@ -239,31 +372,26 @@ function prevStep(step) {
 </script>
 
 <script>
-// --- eCommerce: select_item tracking ---
+// eCommerce: select_item tracking
 document.querySelectorAll('.card button').forEach((button, index) => {
   button.addEventListener('click', function() {
     const card = this.closest('.card');
     const product = {
       item_name: card.querySelector('h3').innerText,
-      item_id: 'prod_' + (index + 1),
-      price: card.querySelector('p').innerText.replace('$', ''),
-      index: index + 1
+      item_id:   'prod_' + (index + 1),
+      price:     card.querySelector('p').innerText.replace('$', ''),
+      index:     index + 1
     };
-
     window.dataLayer = window.dataLayer || [];
     dataLayer.push({
       event: "select_item",
-      ecommerce: {
-        items: [product]
-      }
+      user_id: sessionStorage.getItem('user_id') || null,
+      ecommerce: { items: [product] }
     });
-
-    // Store product for next page
     localStorage.setItem('selectedProduct', JSON.stringify(product));
   });
 });
 </script>
 
-  
 </body>
 </html>
